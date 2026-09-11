@@ -1,0 +1,83 @@
+<svg width="100%" height="100%" viewBox="0 0 800 1200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="alertGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#dc2626" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="1200" fill="url(#bgGrad)" />
+
+  <!-- Outer Card Frame -->
+  <rect x="30" y="40" width="740" height="1120" rx="20" fill="#0f172a" stroke="#334155" stroke-width="2" />
+
+  <!-- Top Emergency Banner -->
+  <rect x="30" y="40" width="740" height="90" rx="20" fill="url(#alertGrad)" />
+  <text x="60" y="95" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="28" font-weight="900" fill="#ffffff" letter-spacing="2">EMERGENCY INCIDENT DISPATCH</text>
+
+  <!-- Subheader Details -->
+  <g transform="translate(60, 170)">
+    <text x="0" y="0" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#ef4444" letter-spacing="1.5">METROPOLITAN RESIDENTIAL MAINTENANCE</text>
+    <text x="0" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="32" font-weight="800" fill="#f8fafc">Active Ceiling Burst — Unit 2B</text>
+    <text x="0" y="70" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" fill="#94a3b8">Origin: Main Riser Isolation Valve (Under Unit 3B Flooring)</text>
+  </g>
+
+  <!-- Status Metric Badges -->
+  <g transform="translate(60, 280)">
+    <rect x="0" y="0" width="210" height="90" rx="12" fill="#1e293b" stroke="#ef4444" stroke-width="2" />
+    <text x="20" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#ef4444">LEAK VELOCITY</text>
+    <text x="20" y="68" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="900" fill="#ffffff">3.5 Gal/Min</text>
+
+    <rect x="235" y="0" width="210" height="90" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+    <text x="255" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#f59e0b">PRESSURE DROP</text>
+    <text x="255" y="68" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="900" fill="#ffffff">-42 PSI</text>
+
+    <rect x="470" y="0" width="210" height="90" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="490" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">MAIN STATUS</text>
+    <text x="490" y="68" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="26" font-weight="900" fill="#ffffff">CUTOFF PENDING</text>
+  </g>
+
+  <!-- Incident Log Box -->
+  <g transform="translate(60, 410)">
+    <rect width="680" height="360" rx="16" fill="#1e293b" stroke="#334155" />
+    <text x="30" y="45" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" fill="#f1f5f9">SUPERINTENDENT DISPATCH LOG</text>
+    <line x1="30" y1="65" x2="650" y2="65" stroke="#334155" stroke-width="1" />
+
+    <text x="30" y="105" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#94a3b8">11:48 AM</text>
+    <text x="120" y="105" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#f8fafc">Unit 2B reports water cascading through drywall and recessed lights.</text>
+
+    <text x="30" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#94a3b8">11:51 AM</text>
+    <text x="120" y="160" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#f8fafc">Emergency entry attempts unsuccessful. Master key restricted by deadbolt.</text>
+
+    <text x="30" y="215" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#ef4444" font-weight="700">11:54 AM</text>
+    <text x="120" y="215" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="15" font-weight="700" fill="#ef4444">AUTHORIZATION: Riser main shutoff sequence initiated.</text>
+
+    <rect x="30" y="260" width="620" height="70" rx="10" fill="#0f172a" stroke="#dc2626" />
+    <text x="50" y="302" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="15" font-weight="800" fill="#ef4444">MANDATORY ENTRY ORDER: Resident presence required within 15 mins.</text>
+  </g>
+
+  <!-- Official Authorization Stamp -->
+  <g transform="translate(60, 810)">
+    <rect width="680" height="230" rx="16" fill="#0b1120" stroke="#1e293b" />
+    <text x="30" y="45" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" fill="#64748b">DISPATCH AUTHENTICATION</text>
+    
+    <text x="30" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#94a3b8">Officer on Duty: Dave Kowalski, Lead Superintendent</text>
+    <text x="30" y="115" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#94a3b8">Incident Ticket: #88219-EMERG-FL02</text>
+    <text x="30" y="145" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#94a3b8">Dispatched Via: Photon Spectrum Emergency Gateway</text>
+
+    <!-- Red Emergency Seal -->
+    <g transform="translate(480, 50)">
+      <circle cx="70" cy="70" r="60" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="6,4" />
+      <text x="70" y="65" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="900" fill="#ef4444" text-anchor="middle">OFFICIAL</text>
+      <text x="70" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="900" fill="#ef4444" text-anchor="middle">DISPATCH</text>
+    </g>
+  </g>
+
+  <!-- Bottom Footer -->
+  <text x="400" y="1120" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" fill="#475569" text-anchor="middle">CONFIDENTIAL • CITY CODE COMPLIANCE NOTICE • DO NOT DISCARD</text>
+</svg>
