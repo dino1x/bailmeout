@@ -104,6 +104,108 @@
       70% { box-shadow: 0 0 0 18px rgba(239, 68, 68, 0); }
       100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
     }
+
+    /* 3D Rotating Video Cylinder Carousel */
+    :root {
+      --cylinder-radius: 270px;
+    }
+    @media (min-width: 640px) {
+      :root {
+        --cylinder-radius: 390px;
+      }
+    }
+    @media (min-width: 1024px) {
+      :root {
+        --cylinder-radius: 510px;
+      }
+    }
+
+    .hero-3d-stage {
+      perspective: 1250px;
+      perspective-origin: 50% 50%;
+      transform-style: preserve-3d;
+      width: 100%;
+      height: 290px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: visible;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    @media (min-width: 640px) {
+      .hero-3d-stage {
+        height: 350px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .hero-3d-stage {
+        height: 390px;
+      }
+    }
+
+    .carousel-3d-ring {
+      width: 250px;
+      height: 155px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCylinder 42s linear infinite;
+      will-change: transform;
+    }
+    @media (min-width: 640px) {
+      .carousel-3d-ring {
+        width: 320px;
+        height: 195px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .carousel-3d-ring {
+        width: 375px;
+        height: 230px;
+      }
+    }
+
+    .hero-3d-stage:hover .carousel-3d-ring,
+    .carousel-3d-ring.is-paused {
+      animation-play-state: paused;
+    }
+
+    @keyframes rotateCylinder {
+      0% {
+        transform: rotateX(-3deg) rotateY(0deg);
+      }
+      100% {
+        transform: rotateX(-3deg) rotateY(-360deg);
+      }
+    }
+
+    .carousel-3d-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #090d16;
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.28), 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+      backface-visibility: visible;
+      transform-style: preserve-3d;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, filter 0.35s ease;
+      cursor: pointer;
+    }
+    .carousel-3d-panel:hover {
+      box-shadow: 0 24px 50px -10px rgba(99, 102, 241, 0.38), 0 0 0 2px rgba(99, 102, 241, 0.9);
+      filter: brightness(1.04);
+    }
+
+    .panel-0 { transform: rotateY(0deg) translateZ(var(--cylinder-radius)); }
+    .panel-1 { transform: rotateY(72deg) translateZ(var(--cylinder-radius)); }
+    .panel-2 { transform: rotateY(144deg) translateZ(var(--cylinder-radius)); }
+    .panel-3 { transform: rotateY(216deg) translateZ(var(--cylinder-radius)); }
+    .panel-4 { transform: rotateY(288deg) translateZ(var(--cylinder-radius)); }
   </style>
 </head>
 <body class="min-h-screen grid-bg selection:bg-indigo-600 selection:text-white">
@@ -188,6 +290,100 @@
       <a href="#audio-lab" class="px-7 py-3.5 rounded-xl text-sm font-semibold text-slate-700 hover:text-slate-900 bg-white border border-slate-300 hover:border-slate-400 transition shadow-sm flex items-center gap-2">
         <span>Listen to Alibi Audio Memos</span>
       </a>
+    </div>
+
+    <!-- 3D Rotating Video Cylinder Carousel (MotionSites Tier) -->
+    <div class="relative w-full max-w-5xl mx-auto my-10 z-0">
+      <div class="hero-3d-stage">
+        <div class="carousel-3d-ring" id="videoCylinderRing">
+          
+          <!-- Panel 0: 01_bored_meeting.mp4 -->
+          <div class="carousel-3d-panel panel-0 group">
+            <video src="assets/clips/01_bored_meeting.mp4" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover"></video>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent p-3.5 flex flex-col justify-end pointer-events-none text-left">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-mono font-semibold uppercase tracking-wider bg-red-500/20 border border-red-500/40 text-red-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+                  Scenario 01
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">Boardroom</span>
+              </div>
+              <div class="text-xs font-bold text-white mt-1">Hostage Meeting Escape</div>
+            </div>
+          </div>
+
+          <!-- Panel 1: 02_hands_texting.mp4 -->
+          <div class="carousel-3d-panel panel-1 group">
+            <video src="assets/clips/02_hands_texting.mp4" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover"></video>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent p-3.5 flex flex-col justify-end pointer-events-none text-left">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-mono font-semibold uppercase tracking-wider bg-indigo-500/20 border border-indigo-500/40 text-indigo-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                  Scenario 02
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">Stealth SOS</span>
+              </div>
+              <div class="text-xs font-bold text-white mt-1">Under-The-Table Tapback</div>
+            </div>
+          </div>
+
+          <!-- Panel 2: 03_message_receive.mp4 -->
+          <div class="carousel-3d-panel panel-2 group">
+            <video src="assets/clips/03_message_receive.mp4" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover"></video>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent p-3.5 flex flex-col justify-end pointer-events-none text-left">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-mono font-semibold uppercase tracking-wider bg-emerald-500/20 border border-emerald-500/40 text-emerald-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Scenario 03
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">Cloud Gateway</span>
+              </div>
+              <div class="text-xs font-bold text-white mt-1">Carrier Cascade Dispatched</div>
+            </div>
+          </div>
+
+          <!-- Panel 3: 04_worried_call.mp4 -->
+          <div class="carousel-3d-panel panel-3 group">
+            <video src="assets/clips/04_worried_call.mp4" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover"></video>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent p-3.5 flex flex-col justify-end pointer-events-none text-left">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-mono font-semibold uppercase tracking-wider bg-amber-500/20 border border-amber-500/40 text-amber-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                  Scenario 04
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">Twilio PSTN</span>
+              </div>
+              <div class="text-xs font-bold text-white mt-1">Inbound Emergency Ring</div>
+            </div>
+          </div>
+
+          <!-- Panel 4: 05_boring_date.mp4 -->
+          <div class="carousel-3d-panel panel-4 group">
+            <video src="assets/clips/05_boring_date.mp4" autoplay muted loop playsinline preload="auto" class="w-full h-full object-cover"></video>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent p-3.5 flex flex-col justify-end pointer-events-none text-left">
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-mono font-semibold uppercase tracking-wider bg-rose-500/20 border border-rose-500/40 text-rose-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+                  Scenario 05
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">Dinner Date</span>
+              </div>
+              <div class="text-xs font-bold text-white mt-1">Awkward Date Extraction</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Interactive 3D Orbit Indicator Pill -->
+      <div class="flex items-center justify-center gap-2 mt-4 text-xs text-slate-500 font-mono">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200 bg-white/90 backdrop-blur-md shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="font-medium text-slate-700">3D Video Orbital Cylinder</span>
+          <span class="text-slate-300">•</span>
+          <span class="text-slate-500">Continuous 360° Playback • Hover to inspect</span>
+        </span>
+      </div>
     </div>
 
     <!-- Live Telemetry Matrix -->
@@ -1267,6 +1463,24 @@
 
     // Initialize with full accurate phone snapshot
     renderFullSnapshot();
+
+    // Autoplay ensure and interactive click logic for 3D Video Cylinder Carousel
+    document.addEventListener('DOMContentLoaded', () => {
+      const ring = document.getElementById('videoCylinderRing');
+      const panels = document.querySelectorAll('.carousel-3d-panel');
+      
+      panels.forEach((panel) => {
+        const video = panel.querySelector('video');
+        if (video) {
+          video.play().catch(() => {});
+        }
+        panel.addEventListener('click', () => {
+          if (ring) {
+            ring.classList.toggle('is-paused');
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>

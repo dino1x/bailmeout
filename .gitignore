@@ -6,8 +6,7 @@ dist
 .DS_Store
 bin/
 test_output*
-assets/clips/
-assets/*.mp4
+assets/bailmeout_demo_video.mp4
 assets/*.wav
 create_bin.js
 test*.js
