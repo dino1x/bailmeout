@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BailMeOut - Autonomous iMessage Social Extraction Agent</title>
-  <meta name="description" content="Autonomous social extraction agent on Apple iMessage. Send 'code red' or tapback Heart to fire a multi-tier verifiable emergency alibi cascade." />
+  <meta name="description" content="Autonomous social extraction agent on Apple iMessage. Send 'code red' or double-tap any message with a Heart reaction to fire a 4-tier verifiable emergency alibi cascade." />
   <meta name="ory-verify" content="orynth-bb929a9e1148410e87f101e9ba618035" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -18,6 +19,21 @@
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            },
+            crimson: {
+              400: '#f87171',
+              500: '#ef4444',
+              600: '#dc2626',
+            }
           }
         }
       }
@@ -25,35 +41,47 @@
   </script>
   <style>
     body {
-      background-color: #07090e;
+      background-color: #06070a;
       color: #f1f5f9;
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
     }
     .glass-panel {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
+      background: rgba(13, 17, 23, 0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-panel-glow {
+      background: rgba(15, 20, 30, 0.8);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.15);
+    }
+    .grid-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 0);
+      background-size: 32px 32px;
     }
     .imessage-blue {
       background-color: #007aff;
       color: #ffffff;
     }
     .imessage-gray {
-      background-color: #26262a;
+      background-color: #24252a;
       color: #f1f5f9;
     }
     .tapback-heart {
       position: absolute;
-      top: -12px;
+      top: -14px;
       right: -8px;
-      background: #333338;
-      border: 2px solid #07090e;
+      background: #2c2c30;
+      border: 2px solid #06070a;
       border-radius: 9999px;
-      padding: 2px 6px;
+      padding: 2px 8px;
       font-size: 11px;
       color: #ef4444;
       font-weight: 700;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.6);
       animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     @keyframes popIn {
@@ -62,269 +90,322 @@
     }
     .call-pulse {
       box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
-      animation: pulse 1.5s infinite;
+      animation: pulse 1.6s infinite;
     }
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
-      70% { box-shadow: 0 0 0 16px rgba(239, 68, 68, 0); }
+      70% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
       100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
     }
-    .grid-bg {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 0);
-      background-size: 24px 24px;
+    .audio-bar {
+      transition: height 0.15s ease-in-out;
+    }
+    .subtle-ring {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
     }
   </style>
 </head>
-<body class="min-h-screen grid-bg selection:bg-indigo-500 selection:text-white">
+<body class="min-h-screen grid-bg selection:bg-indigo-600 selection:text-white">
+
+  <!-- Ambient Ambient Glow Orbs -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-indigo-600/10 via-red-500/5 to-transparent blur-[120px] pointer-events-none z-0"></div>
+  <div class="fixed bottom-0 right-0 w-[500px] h-[400px] bg-indigo-900/10 blur-[140px] pointer-events-none z-0"></div>
 
   <!-- Navigation Bar -->
-  <header class="sticky top-0 z-50 glass-panel border-b border-white/5 px-6 py-4">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
+  <header class="sticky top-0 z-50 glass-panel border-b border-white/[0.06] px-6 py-3.5 transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-red-600/20 border border-red-500/40 flex items-center justify-center font-mono font-bold text-red-400 text-xs">
+        <div class="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center justify-center font-mono font-bold text-red-400 text-xs">
           SOS
         </div>
-        <span class="font-bold tracking-tight text-lg text-white">BailMeOut</span>
-        <span class="px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
-          Cloud Operational 24/7
+        <div class="flex items-baseline gap-2">
+          <span class="font-bold tracking-tight text-lg text-white">BailMeOut</span>
+          <span class="text-slate-500 text-xs font-mono hidden sm:inline">v1.0-cloud</span>
+        </div>
+        <span class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          24/7 Cloud Carrier Active
         </span>
       </div>
 
-      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-400 font-medium">
+      <nav class="hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-wider text-slate-400 font-medium">
         <a href="#simulator" class="hover:text-white transition">Simulator</a>
-        <a href="#cascade" class="hover:text-white transition">4-Tier Cascade</a>
-        <a href="#scenarios" class="hover:text-white transition">Scenarios</a>
+        <a href="#cascade" class="hover:text-white transition">4-Tier Protocol</a>
+        <a href="#audio-lab" class="hover:text-white transition">Voice Studio</a>
         <a href="#architecture" class="hover:text-white transition">Architecture</a>
+        <a href="#faq" class="hover:text-white transition">FAQ</a>
       </nav>
 
       <div class="flex items-center gap-3">
-        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-mono font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition">
+        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 transition">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
+          <span class="hidden sm:inline">GitHub</span>
         </a>
-        <a href="#simulator" class="px-3.5 py-1.5 rounded-md text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition shadow-sm shadow-indigo-500/20">
-          Try Live Demo
+        <a href="#simulator" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition shadow-sm shadow-indigo-500/25">
+          Launch Simulator
         </a>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="max-w-6xl mx-auto px-6 pt-16 pb-20 text-center relative">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 mb-6">
-      <span>Photon Spectrum Carrier Gateway</span>
-      <span class="text-slate-500">•</span>
-      <span>Autonomous iMessage Extraction</span>
+  <section class="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center relative z-10">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 mb-8">
+      <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+      <span>Photon Spectrum Carrier Integration</span>
+      <span class="text-slate-600">•</span>
+      <span>ElevenLabs Voice AI</span>
+      <span class="text-slate-600">•</span>
+      <span>Twilio Cellular Voice</span>
     </div>
 
-    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.15]">
-      The AI safe word that bails you out of <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-rose-300 to-indigo-300">bad dates and hostage meetings</span>.
+    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.08]">
+      The autonomous safe word that bails you out of <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-rose-300 to-indigo-300">bad dates and hostage meetings</span>.
     </h1>
 
-    <p class="mt-6 text-base sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-      Discreetly double-tap any message with a Heart reaction or text <span class="font-mono text-slate-200 bg-white/5 px-2 py-0.5 rounded border border-white/10">code red</span>. BailMeOut executes a multi-tier verifiable alibi cascade: urgent text, synthetic voice memo, proof card, and a real outbound phone call.
+    <p class="mt-8 text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+      Discreetly double-tap any message with an Apple Heart reaction under the dinner table, or text <span class="font-mono text-slate-200 bg-white/5 px-2 py-0.5 rounded border border-white/10">code red</span>. BailMeOut executes an inescapable multi-tier verifiable emergency cascade: high-urgency SMS, authentic ElevenLabs voice memo, verifiable dispatch card, and a live outbound phone call dialing your phone.
     </p>
 
-    <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-      <a href="#simulator" class="px-6 py-3 rounded-lg text-sm font-semibold text-white bg-red-600 hover:bg-red-500 transition shadow-lg shadow-red-600/30 flex items-center gap-2">
-        <span>Test Interactive Simulator</span>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <a href="#simulator" class="px-7 py-3.5 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-500 transition shadow-xl shadow-red-600/25 flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+        <span>Test Under-The-Table Trigger</span>
       </a>
-      <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="px-6 py-3 rounded-lg text-sm font-semibold text-slate-300 hover:text-white bg-slate-900 border border-slate-800 hover:border-slate-700 transition flex items-center gap-2">
-        <span>View Source Code</span>
+      <a href="#audio-lab" class="px-7 py-3.5 rounded-xl text-sm font-semibold text-slate-300 hover:text-white bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition flex items-center gap-2">
+        <span>Listen to Alibi Audio Memos</span>
       </a>
     </div>
 
-    <!-- Live Telemetry Ticker -->
-    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
-      <div class="glass-panel p-4 rounded-xl">
-        <div class="text-xs font-mono text-slate-400">Zero-Friction Trigger</div>
-        <div class="text-lg font-bold text-white mt-1">Apple Tapback</div>
-        <div class="text-xs text-slate-500 mt-0.5">Heart reaction or safe word</div>
+    <!-- Live Telemetry Matrix -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto text-left">
+      <div class="glass-panel p-5 rounded-2xl subtle-ring">
+        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Detection Mode</div>
+        <div class="text-xl font-bold text-white mt-1.5">Apple Tapback</div>
+        <div class="text-xs text-slate-500 mt-1">Zero-typing silent trigger via Heart reaction</div>
       </div>
-      <div class="glass-panel p-4 rounded-xl">
-        <div class="text-xs font-mono text-slate-400">Voice Synthesis</div>
-        <div class="text-lg font-bold text-white mt-1">ElevenLabs</div>
-        <div class="text-xs text-slate-500 mt-0.5">M4A voice memo dispatch</div>
+      <div class="glass-panel p-5 rounded-2xl subtle-ring">
+        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Voice Synthesis</div>
+        <div class="text-xl font-bold text-white mt-1.5">ElevenLabs M4A</div>
+        <div class="text-xs text-slate-500 mt-1">Authentic distressed audio memo format</div>
       </div>
-      <div class="glass-panel p-4 rounded-xl">
-        <div class="text-xs font-mono text-slate-400">PSTN Phone Call</div>
-        <div class="text-lg font-bold text-white mt-1">Twilio Voice API</div>
-        <div class="text-xs text-slate-500 mt-0.5">T+25s automated inbound dial</div>
+      <div class="glass-panel p-5 rounded-2xl subtle-ring">
+        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Live Cellular Dial</div>
+        <div class="text-xl font-bold text-white mt-1.5">Twilio Voice API</div>
+        <div class="text-xs text-slate-500 mt-1">T+25s automated inbound PSTN ring</div>
       </div>
-      <div class="glass-panel p-4 rounded-xl">
-        <div class="text-xs font-mono text-slate-400">Cloud Runtime</div>
-        <div class="text-lg font-bold text-emerald-400 mt-1">24/7 Autonomous</div>
-        <div class="text-xs text-slate-500 mt-0.5">Laptop shutdown proof</div>
+      <div class="glass-panel p-5 rounded-2xl subtle-ring">
+        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Hosting Guarantee</div>
+        <div class="text-xl font-bold text-emerald-400 mt-1.5">24/7 Cloud Worker</div>
+        <div class="text-xs text-slate-500 mt-1">Laptop shutdown and sleep proof</div>
       </div>
     </div>
   </section>
 
-  <!-- Interactive iPhone Simulator Section -->
-  <section id="simulator" class="max-w-6xl mx-auto px-6 py-16">
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold mb-2">Live Interactive Preview</div>
-      <h2 class="text-3xl sm:text-4xl font-bold text-white">Experience the Extraction Cascade</h2>
-      <p class="text-slate-400 mt-3 text-sm">Select an emergency alibi scenario below, then tap the reaction or safe word button to watch the real-time response.</p>
+  <!-- Interactive iPhone 16 Pro Simulator -->
+  <section id="simulator" class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold mb-2">Tactile Hardware Simulation</div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Interactive Live Testbench</h2>
+      <p class="text-slate-400 mt-3 text-sm sm:text-base">Experience the full escape protocol exactly as it behaves on an iPhone 16 Pro.</p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
       
-      <!-- Scenario & Trigger Controls (Left Panel) -->
-      <div class="lg:col-span-5 space-y-6">
+      <!-- Control Deck (Left Column) -->
+      <div class="lg:col-span-6 space-y-6">
         
-        <!-- Scenario Selector Card -->
-        <div class="glass-panel p-6 rounded-2xl">
-          <h3 class="text-sm font-semibold text-white uppercase tracking-wider font-mono mb-4">1. Select Emergency Scenario</h3>
+        <!-- Step 1: Scenario Selector -->
+        <div class="glass-panel p-6 rounded-3xl subtle-ring">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xs font-bold text-white uppercase tracking-wider font-mono">1. Select Emergency Alibi Scenario</h3>
+            <span class="text-[10px] font-mono text-slate-400">Context Engine</span>
+          </div>
+          
           <div class="space-y-3">
-            <button onclick="setScenario('apartment_flood')" id="btn-scen-flood" class="scenario-btn w-full text-left p-3.5 rounded-xl border border-indigo-500/40 bg-indigo-500/10 transition">
+            <button onclick="setScenario('apartment_flood')" id="btn-scen-flood" class="scenario-btn w-full text-left p-4 rounded-2xl border border-indigo-500/40 bg-indigo-500/10 transition">
               <div class="flex items-center justify-between">
-                <span class="font-bold text-white text-sm">Apartment Flood (Maintenance)</span>
+                <span class="font-bold text-white text-sm">Apartment Flood (Home Maintenance)</span>
                 <span class="text-[11px] font-mono text-indigo-300">Super Dave</span>
               </div>
-              <p class="text-xs text-slate-400 mt-1">Burst pipe in unit 2B right below yours. Demands urgent return home to shut off valve.</p>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Pipes burst in apartment 2B right below yours. Demands urgent return home to shut off main valve.</p>
             </button>
 
-            <button onclick="setScenario('production_outage')" id="btn-scen-outage" class="scenario-btn w-full text-left p-3.5 rounded-xl border border-white/5 bg-white/5 hover:border-white/10 transition">
+            <button onclick="setScenario('production_outage')" id="btn-scen-outage" class="scenario-btn w-full text-left p-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] hover:border-white/10 transition">
               <div class="flex items-center justify-between">
-                <span class="font-bold text-white text-sm">Production Outage (Work P0)</span>
+                <span class="font-bold text-white text-sm">Production Outage (Work P0 Incident)</span>
                 <span class="text-[11px] font-mono text-slate-400">CTO Sarah</span>
               </div>
-              <p class="text-xs text-slate-400 mt-1">Global Stripe webhook failure. Checkout 500 errors. Demands immediate war room attendance.</p>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Global Stripe webhook failure across checkout. All checkouts returning 500s. Urgent war room call.</p>
             </button>
 
-            <button onclick="setScenario('dog_escape')" id="btn-scen-pet" class="scenario-btn w-full text-left p-3.5 rounded-xl border border-white/5 bg-white/5 hover:border-white/10 transition">
+            <button onclick="setScenario('dog_escape')" id="btn-scen-pet" class="scenario-btn w-full text-left p-4 rounded-2xl border border-white/[0.06] bg-white/[0.03] hover:border-white/10 transition">
               <div class="flex items-center justify-between">
-                <span class="font-bold text-white text-sm">Escaped Dog (Family/Pet)</span>
+                <span class="font-bold text-white text-sm">Escaped Dog (Family & Pet)</span>
                 <span class="text-[11px] font-mono text-slate-400">Neighbor Mike</span>
               </div>
-              <p class="text-xs text-slate-400 mt-1">Back gate blew open in high wind. Dog spotted running down Elm Street.</p>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Back gate blew open in high wind. Dog was spotted running towards the main avenue.</p>
             </button>
           </div>
         </div>
 
-        <!-- Trigger Buttons Card -->
-        <div class="glass-panel p-6 rounded-2xl">
-          <h3 class="text-sm font-semibold text-white uppercase tracking-wider font-mono mb-4">2. Fire Stealth Trigger</h3>
-          
-          <div class="grid grid-cols-2 gap-3">
-            <button onclick="triggerTapbackHeart()" class="p-3 rounded-xl bg-red-600/20 border border-red-500/40 hover:bg-red-600/30 text-red-200 font-semibold text-xs flex flex-col items-center justify-center gap-1 transition group">
-              <span class="text-base font-bold text-red-400">Heart Reaction</span>
-              <span class="text-[10px] text-red-300/70">Silent Under-the-Table</span>
+        <!-- Step 2: Trigger Operations -->
+        <div class="glass-panel p-6 rounded-3xl subtle-ring">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xs font-bold text-white uppercase tracking-wider font-mono">2. Fire Stealth Trigger</h3>
+            <span class="text-[10px] font-mono text-emerald-400" id="telemetry-status">System Armed</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3.5">
+            <button onclick="triggerTapbackHeart()" class="p-4 rounded-2xl bg-red-500/10 border border-red-500/30 hover:bg-red-500/20 text-red-200 font-semibold text-xs flex flex-col items-center justify-center gap-1.5 transition group">
+              <span class="text-sm font-bold text-red-400 group-hover:scale-105 transition-transform">Tapback Heart Reaction</span>
+              <span class="text-[10px] font-mono text-red-300/70">Double-tap under table</span>
             </button>
 
-            <button onclick="triggerSafeWord()" class="p-3 rounded-xl bg-indigo-600/20 border border-indigo-500/40 hover:bg-indigo-600/30 text-indigo-200 font-semibold text-xs flex flex-col items-center justify-center gap-1 transition group">
-              <span class="text-base font-mono font-bold text-indigo-300">"code red"</span>
-              <span class="text-[10px] text-indigo-300/70">Safe Word Text</span>
+            <button onclick="triggerSafeWord()" class="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 hover:bg-indigo-500/20 text-indigo-200 font-semibold text-xs flex flex-col items-center justify-center gap-1.5 transition group">
+              <span class="text-sm font-mono font-bold text-indigo-300 group-hover:scale-105 transition-transform">Send "code red"</span>
+              <span class="text-[10px] font-mono text-indigo-300/70">Safe Word Text</span>
             </button>
           </div>
 
-          <div class="mt-3 grid grid-cols-2 gap-3">
-            <button onclick="triggerDirectCall()" class="p-2.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 text-xs font-mono transition text-center">
-              Send "call me"
+          <div class="mt-3.5 grid grid-cols-2 gap-3">
+            <button onclick="triggerDirectCall()" class="p-3 rounded-xl bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] text-slate-300 text-xs font-mono transition text-center">
+              Send "call me" (Direct Dial)
             </button>
-            <button onclick="resetSimulator()" class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs font-mono transition text-center">
+            <button onclick="resetSimulator()" class="p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs font-mono transition text-center">
               Reset Simulator
             </button>
           </div>
 
-          <div class="mt-4 pt-4 border-t border-white/5">
-            <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+          <!-- Progress Bar -->
+          <div class="mt-5 pt-4 border-t border-white/[0.06]">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
               <span>Cascade Timeline:</span>
-              <span id="telemetry-status" class="text-emerald-400">Standby (Idle)</span>
+              <span id="timeline-sec" class="text-white">T+0s</span>
             </div>
-            <div class="w-full bg-slate-900 rounded-full h-1.5 mt-2 overflow-hidden border border-white/5">
-              <div id="timeline-progress" class="bg-indigo-500 h-1.5 rounded-full transition-all duration-300 w-0"></div>
+            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-white/[0.06]">
+              <div id="timeline-progress" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-red-500 h-2 rounded-full transition-all duration-300 w-0"></div>
             </div>
           </div>
         </div>
 
       </div>
 
-      <!-- Realistic iPhone Mockup (Right Panel) -->
-      <div class="lg:col-span-7 flex justify-center">
-        <div class="w-[360px] sm:w-[390px] h-[720px] rounded-[48px] border-[6px] border-[#222329] bg-[#07090e] shadow-2xl relative overflow-hidden flex flex-col font-sans">
+      <!-- iPhone 16 Pro Hardware Mockup (Right Column) -->
+      <div class="lg:col-span-6 flex justify-center">
+        <div class="w-[370px] sm:w-[395px] h-[750px] rounded-[52px] border-[8px] border-[#1f2026] bg-[#07090e] shadow-[0_25px_70px_-15px_rgba(0,0,0,0.9)] relative overflow-hidden flex flex-col font-sans select-none">
           
           <!-- iPhone Dynamic Island -->
-          <div class="h-10 w-full flex items-center justify-center relative pt-2 z-20">
-            <div class="w-28 h-6 bg-black rounded-full flex items-center justify-between px-3">
-              <div class="w-2 h-2 rounded-full bg-slate-900"></div>
+          <div class="h-11 w-full flex items-center justify-center relative pt-2 z-30">
+            <div class="w-32 h-7 bg-black rounded-full flex items-center justify-between px-3 border border-white/[0.05]">
+              <div class="w-2 h-2 rounded-full bg-neutral-900"></div>
               <div class="w-2.5 h-2.5 rounded-full bg-[#111] border border-white/10"></div>
             </div>
           </div>
 
-          <!-- iMessage Header -->
-          <div class="px-4 py-2 border-b border-white/10 flex items-center justify-between bg-[#13141a]/80 backdrop-blur z-10">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center font-bold text-xs text-white">
-                BM
-              </div>
-              <div>
-                <div class="text-xs font-bold text-white flex items-center gap-1">
-                  <span>BailMeOut</span>
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                </div>
-                <div class="text-[10px] text-slate-400">iMessage (Spectrum Agent)</div>
-              </div>
-            </div>
-            <div class="text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded border border-white/10">
-              Carrier Active
+          <!-- iPhone Status Bar -->
+          <div class="px-7 py-1 flex items-center justify-between text-[11px] font-semibold text-slate-300 z-20">
+            <span id="iphone-clock">9:41</span>
+            <div class="flex items-center gap-1.5">
+              <!-- Signal Bars SVG -->
+              <svg class="w-3.5 h-3 fill-current" viewBox="0 0 24 24"><path d="M2 17h3v5H2zm5-4h3v9H7zm5-4h3v13h-3zm5-5h3v18h-3z"/></svg>
+              <span class="text-[10px] font-mono">5G</span>
+              <!-- Battery SVG -->
+              <svg class="w-4 h-3 fill-current" viewBox="0 0 24 24"><path d="M17 6H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2v-1h2c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1h-2V8c0-1.1-.9-2-2-2zm0 10H4V8h13v8z"/></svg>
             </div>
           </div>
 
-          <!-- Chat Conversation View -->
-          <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-3.5 text-xs">
+          <!-- iMessage Navigation Bar -->
+          <div class="px-4 py-2.5 border-b border-white/[0.06] flex items-center justify-between bg-[#111218]/90 backdrop-blur-md z-20">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-slate-700 to-slate-600 flex items-center justify-center font-bold text-xs text-white shadow-inner">
+                BM
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                  <span>BailMeOut</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                </div>
+                <div class="text-[10px] text-slate-400">iMessage (Photon Carrier)</div>
+              </div>
+            </div>
+            <span class="text-[9px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
+              ONLINE
+            </span>
+          </div>
+
+          <!-- Chat Conversation Scroll Area -->
+          <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-4 text-xs">
             
             <!-- Default Bot Prompt Message -->
             <div class="flex justify-start">
-              <div id="bot-anchor-message" class="relative imessage-gray rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[82%] leading-relaxed shadow">
+              <div id="bot-anchor-message" class="relative imessage-gray rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] leading-relaxed shadow border border-white/[0.04]">
                 Hey, are you free to chat? Double-tap this message with a Heart reaction if you need an alibi right now.
               </div>
             </div>
 
           </div>
 
-          <!-- iPhone Message Input Bar -->
-          <div class="p-3 bg-[#13141a] border-t border-white/10 flex items-center gap-2">
-            <div class="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 text-xs font-bold">
+          <!-- Simulated iPhone Typing Indicator (Hidden by Default) -->
+          <div id="typing-indicator" class="hidden px-4 py-1">
+            <div class="imessage-gray inline-flex items-center gap-1 px-3 py-2 rounded-2xl rounded-tl-sm">
+              <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
+              <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.15s"></span>
+              <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+            </div>
+          </div>
+
+          <!-- Message Input Bar -->
+          <div class="p-3 bg-[#111218] border-t border-white/[0.06] flex items-center gap-2 z-20">
+            <button class="w-7 h-7 rounded-full bg-slate-800/80 flex items-center justify-center text-slate-400 text-sm font-bold">
               +
+            </button>
+            <div class="flex-1 bg-black/60 border border-white/[0.08] rounded-full px-3.5 py-1.5 text-xs text-slate-400 flex items-center justify-between">
+              <input id="user-custom-input" type="text" placeholder="iMessage" class="bg-transparent text-white placeholder-slate-500 focus:outline-none w-full text-xs" onkeydown="if(event.key==='Enter') sendCustomInput()">
             </div>
-            <div class="flex-1 bg-black/60 border border-white/10 rounded-full px-3.5 py-1.5 text-xs text-slate-400 flex items-center justify-between">
-              <span id="input-mock-text">iMessage</span>
-              <span class="text-[10px] font-mono text-slate-600">mic</span>
-            </div>
-            <button onclick="triggerSafeWord()" class="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold shadow">
+            <button onclick="sendCustomInput()" class="w-7 h-7 rounded-full bg-[#007aff] hover:bg-blue-600 flex items-center justify-center text-white text-xs font-bold transition shadow">
               ↑
             </button>
           </div>
 
-          <!-- Simulated Incoming Call Overlay (T+25s) -->
-          <div id="incoming-call-modal" class="hidden absolute inset-0 bg-[#07090e]/95 backdrop-blur-xl z-30 flex-col justify-between p-8 text-center">
-            <div class="pt-10">
-              <div class="w-20 h-20 rounded-full bg-slate-800 border-2 border-slate-700 mx-auto flex items-center justify-center text-2xl font-bold text-white shadow-xl call-pulse">
+          <!-- Realistic iOS Incoming Call Modal Overlay -->
+          <div id="incoming-call-modal" class="hidden absolute inset-0 bg-[#06070a]/95 backdrop-blur-2xl z-40 flex-col justify-between p-8 text-center">
+            <div class="pt-8">
+              <div class="w-20 h-20 rounded-full bg-slate-800/90 border-2 border-slate-700 mx-auto flex items-center justify-center text-2xl font-bold text-white shadow-2xl call-pulse">
                 SOS
               </div>
-              <h4 id="call-caller-name" class="text-xl font-bold text-white mt-5">Building Maintenance</h4>
+              <h4 id="call-caller-name" class="text-xl font-bold text-white mt-4">Building Maintenance</h4>
               <p class="text-xs font-mono text-slate-400 mt-1">+1 (737) 250-8034</p>
-              <div class="mt-3 inline-block px-3 py-1 rounded-full bg-red-500/20 border border-red-500/40 text-red-300 font-mono text-[11px]">
-                INCOMING EMERGENCY CALL
+              <div class="mt-3 inline-block px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-300 font-mono text-[10px] tracking-wider uppercase">
+                Incoming Emergency Call
               </div>
             </div>
 
-            <div class="bg-slate-900/80 border border-white/10 rounded-2xl p-4 text-left">
-              <div class="text-[10px] font-mono text-slate-400 uppercase">TwiML Voice Speech Engine:</div>
-              <p id="call-speech-text" class="text-xs text-slate-300 mt-1 italic leading-relaxed">
+            <!-- TwiML Speech Transcript Preview -->
+            <div class="glass-panel p-4 rounded-2xl text-left border border-white/10">
+              <div class="text-[10px] font-mono text-indigo-300 uppercase tracking-wider">Polly Speech Synthesis Stream:</div>
+              <p id="call-speech-text" class="text-xs text-slate-200 mt-1.5 italic leading-relaxed">
                 "Emergency alert! This is Dave from building maintenance. Water is pouring through the ceiling into apartment 2B right below yours..."
               </p>
             </div>
 
-            <div class="flex items-center justify-around pb-8">
-              <button onclick="dismissCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 flex flex-col items-center justify-center text-white text-xs font-bold shadow-lg transition">
-                <span>Decline</span>
-              </button>
-              <button onclick="acceptCall()" class="w-16 h-16 rounded-full bg-emerald-600 hover:bg-emerald-500 flex flex-col items-center justify-center text-white text-xs font-bold shadow-lg transition">
-                <span>Answer</span>
-              </button>
+            <!-- iOS Call Action Buttons -->
+            <div class="flex items-center justify-around pb-6">
+              <div class="flex flex-col items-center gap-1.5">
+                <button onclick="dismissCall()" class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-500 flex items-center justify-center text-white text-xs font-bold shadow-xl transition active:scale-95">
+                  <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28-.79-.74-1.69-1.36-2.67-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/></svg>
+                </button>
+                <span class="text-[10px] font-mono text-slate-400">Decline</span>
+              </div>
+
+              <div class="flex flex-col items-center gap-1.5">
+                <button onclick="acceptCall()" class="w-16 h-16 rounded-full bg-emerald-600 hover:bg-emerald-500 flex items-center justify-center text-white text-xs font-bold shadow-xl transition active:scale-95">
+                  <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.57 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-.99-1z"/></svg>
+                </button>
+                <span class="text-[10px] font-mono text-slate-400">Accept</span>
+              </div>
             </div>
+
           </div>
 
         </div>
@@ -333,110 +414,142 @@
     </div>
   </section>
 
-  <!-- 4-Stage Verifiable Cascade Section -->
-  <section id="cascade" class="max-w-6xl mx-auto px-6 py-20 border-t border-white/5">
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold mb-2">Autonomous Choreography</div>
-      <h2 class="text-3xl sm:text-4xl font-bold text-white">The 4-Stage Extraction Protocol</h2>
-      <p class="text-slate-400 mt-3 text-sm">Engineered so you never have to break eye contact or fumble with complicated apps under the table.</p>
+  <!-- 4-Stage Verifiable Protocol Section -->
+  <section id="cascade" class="max-w-7xl mx-auto px-6 py-24 border-t border-white/[0.06] relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold mb-2">Choreographed Escalation</div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">The 4-Stage Extraction Protocol</h2>
+      <p class="text-slate-400 mt-3 text-sm sm:text-base">Designed from the ground up so you never fumble with apps, look down nervously, or break eye contact.</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       
       <!-- Stage 1 -->
-      <div class="glass-panel p-6 rounded-2xl relative border-t-2 border-t-indigo-500">
-        <div class="text-[10px] font-mono font-bold text-indigo-400 uppercase tracking-wider">T+0s • Trigger</div>
-        <h3 class="text-base font-bold text-white mt-2">Zero-Friction Reaction</h3>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-          Double-tap any text in the conversation with a Heart or Thumbs Up, or text <span class="font-mono text-slate-300">code red</span>. Captured instantly over Photon Spectrum carrier gateway.
-        </p>
+      <div class="glass-panel p-6 rounded-3xl relative border-t-2 border-t-indigo-500 subtle-ring flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono font-bold text-indigo-400 uppercase tracking-wider">
+            <span>Stage 01</span>
+            <span>T+0s</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mt-3">Zero-Typing Reaction</h3>
+          <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
+            Double-tap any message with an Apple Heart reaction under the table. Captured instantaneously over Photon Spectrum's carrier gateway via gRPC streaming.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-slate-500">
+          Input: Heart / Thumbs Up / "code red"
+        </div>
       </div>
 
       <!-- Stage 2 -->
-      <div class="glass-panel p-6 rounded-2xl relative border-t-2 border-t-blue-500">
-        <div class="text-[10px] font-mono font-bold text-blue-400 uppercase tracking-wider">T+2s • Direct SMS</div>
-        <h3 class="text-base font-bold text-white mt-2">Plausible Emergency Text</h3>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-          BailMeOut injects a high-urgency message into your thread. If your phone is on the table, the preview immediately verifies you need to leave.
-        </p>
+      <div class="glass-panel p-6 rounded-3xl relative border-t-2 border-t-blue-500 subtle-ring flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono font-bold text-blue-400 uppercase tracking-wider">
+            <span>Stage 02</span>
+            <span>T+2s</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mt-3">Urgent SMS Alibi</h3>
+          <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
+            A high-priority text message lands in your thread. If your iPhone is face up on the table, the lockscreen banner proves to anyone nearby that an urgent situation requires your attention.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-slate-500">
+          Payload: Contextual SMS Dispatch
+        </div>
       </div>
 
       <!-- Stage 3 -->
-      <div class="glass-panel p-6 rounded-2xl relative border-t-2 border-t-purple-500">
-        <div class="text-[10px] font-mono font-bold text-purple-400 uppercase tracking-wider">T+6s • Audio Memo</div>
-        <h3 class="text-base font-bold text-white mt-2">ElevenLabs Voice Memo</h3>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-          An authentic native audio note arrives in your thread with natural acoustics and vocal distress. Play it aloud on speaker to convince anyone nearby.
-        </p>
+      <div class="glass-panel p-6 rounded-3xl relative border-t-2 border-t-purple-500 subtle-ring flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono font-bold text-purple-400 uppercase tracking-wider">
+            <span>Stage 03</span>
+            <span>T+6s</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mt-3">ElevenLabs Audio Memo</h3>
+          <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
+            An authentic Apple M4A audio memo arrives. Synthesized with genuine vocal distress, emotional urgency, and ambient room tone. Playable aloud on speaker.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-slate-500">
+          Codec: Apple AAC (.m4a) Container
+        </div>
       </div>
 
       <!-- Stage 4 -->
-      <div class="glass-panel p-6 rounded-2xl relative border-t-2 border-t-red-500">
-        <div class="text-[10px] font-mono font-bold text-red-400 uppercase tracking-wider">T+25s • PSTN Call</div>
-        <h3 class="text-base font-bold text-white mt-2">Twilio Emergency Phone Call</h3>
-        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-          The ultimate out. Your phone rings out loud via standard cellular PSTN with an automated speech agent demanding your urgent physical presence.
-        </p>
+      <div class="glass-panel p-6 rounded-3xl relative border-t-2 border-t-red-500 subtle-ring flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono font-bold text-red-400 uppercase tracking-wider">
+            <span>Stage 04</span>
+            <span>T+25s</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mt-3">Twilio Cellular Dial</h3>
+          <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
+            The decisive escape. Your device rings aloud over standard cellular carrier PSTN with an automated speech agent demanding your urgent physical presence.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-white/[0.06] text-[11px] font-mono text-slate-500">
+          PSTN: Twilio Voice & Polly Speech
+        </div>
       </div>
 
     </div>
   </section>
 
   <!-- Live Audio Voicemail Lab -->
-  <section id="scenarios" class="max-w-6xl mx-auto px-6 py-16 border-t border-white/5">
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold mb-2">Voice Synthesis Showcase</div>
-      <h2 class="text-3xl sm:text-4xl font-bold text-white">Hear the Hyper-Realistic Audio Alibis</h2>
-      <p class="text-slate-400 mt-3 text-sm">Synthesized dynamically using ElevenLabs Voice AI and pre-rendered as native Apple audio memos.</p>
+  <section id="audio-lab" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06] relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold mb-2">Voice Studio</div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Audible Proof Lab</h2>
+      <p class="text-slate-400 mt-3 text-sm sm:text-base">Listen to the hyper-realistic audio alibis synthesized using ElevenLabs Voice AI and pre-rendered for native Apple devices.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       
-      <!-- Audio 1: Landlord -->
-      <div class="glass-panel p-6 rounded-2xl border border-white/5">
+      <!-- Audio Card 1: Maintenance -->
+      <div class="glass-panel p-6 rounded-3xl border border-white/[0.06] subtle-ring">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-semibold text-red-400">Scenario: Home Emergency</span>
-          <span class="text-[10px] font-mono text-slate-500">0:12</span>
+          <span class="text-xs font-mono font-semibold text-red-400 uppercase tracking-wider">Home Emergency</span>
+          <span class="text-[10px] font-mono text-slate-500">0:12 AAC</span>
         </div>
-        <h3 class="text-base font-bold text-white mt-2">Building Super Dave</h3>
-        <p class="text-xs text-slate-400 mt-1 italic">"Water is pouring through the ceiling into apartment 2B right below yours..."</p>
+        <h3 class="text-base font-bold text-white mt-2">Super Dave (Maintenance)</h3>
+        <p class="text-xs text-slate-400 mt-1 italic leading-relaxed">"Water is pouring through the ceiling into apartment 2B right below yours..."</p>
         
-        <div class="mt-4 pt-4 border-t border-white/5">
-          <audio controls class="w-full h-8 opacity-80" preload="none">
+        <div class="mt-5 pt-4 border-t border-white/[0.06]">
+          <audio controls class="w-full h-9 opacity-85" preload="none">
             <source src="assets/bailmeout-1.mp3" type="audio/mp3">
             Your browser does not support audio playback.
           </audio>
         </div>
       </div>
 
-      <!-- Audio 2: CTO Sarah -->
-      <div class="glass-panel p-6 rounded-2xl border border-white/5">
+      <!-- Audio Card 2: CTO Sarah -->
+      <div class="glass-panel p-6 rounded-3xl border border-white/[0.06] subtle-ring">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-semibold text-indigo-400">Scenario: Tech / Work P0</span>
-          <span class="text-[10px] font-mono text-slate-500">0:14</span>
+          <span class="text-xs font-mono font-semibold text-indigo-400 uppercase tracking-wider">Work P0 Incident</span>
+          <span class="text-[10px] font-mono text-slate-500">0:14 AAC</span>
         </div>
-        <h3 class="text-base font-bold text-white mt-2">CTO Sarah (Incident Room)</h3>
-        <p class="text-xs text-slate-400 mt-1 italic">"Stripe webhooks are failing globally. All checkout flows returning 500 errors..."</p>
+        <h3 class="text-base font-bold text-white mt-2">CTO Sarah (War Room)</h3>
+        <p class="text-xs text-slate-400 mt-1 italic leading-relaxed">"Stripe webhooks are failing globally. All checkout flows returning 500 errors..."</p>
         
-        <div class="mt-4 pt-4 border-t border-white/5">
-          <audio controls class="w-full h-8 opacity-80" preload="none">
+        <div class="mt-5 pt-4 border-t border-white/[0.06]">
+          <audio controls class="w-full h-9 opacity-85" preload="none">
             <source src="assets/bailmeout-4.mp3" type="audio/mp3">
             Your browser does not support audio playback.
           </audio>
         </div>
       </div>
 
-      <!-- Audio 3: Master Voiceover -->
-      <div class="glass-panel p-6 rounded-2xl border border-white/5">
+      <!-- Audio Card 3: Master Narration -->
+      <div class="glass-panel p-6 rounded-3xl border border-white/[0.06] subtle-ring">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-semibold text-emerald-400">Scenario: Demo Narration</span>
-          <span class="text-[10px] font-mono text-slate-500">0:38</span>
+          <span class="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider">Demo Narration</span>
+          <span class="text-[10px] font-mono text-slate-500">0:38 HD</span>
         </div>
         <h3 class="text-base font-bold text-white mt-2">Master Product Walkthrough</h3>
-        <p class="text-xs text-slate-400 mt-1 italic">"We've all been trapped in a terrible first date or a meeting that should have been an email..."</p>
+        <p class="text-xs text-slate-400 mt-1 italic leading-relaxed">"We've all been trapped in a terrible first date or a meeting that should have been an email..."</p>
         
-        <div class="mt-4 pt-4 border-t border-white/5">
-          <audio controls class="w-full h-8 opacity-80" preload="none">
+        <div class="mt-5 pt-4 border-t border-white/[0.06]">
+          <audio controls class="w-full h-9 opacity-85" preload="none">
             <source src="assets/master_voiceover.mp3" type="audio/mp3">
             Your browser does not support audio playback.
           </audio>
@@ -446,52 +559,151 @@
     </div>
   </section>
 
-  <!-- Architecture & Stack Section -->
-  <section id="architecture" class="max-w-6xl mx-auto px-6 py-20 border-t border-white/5">
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold mb-2">Technical Primitives</div>
-      <h2 class="text-3xl sm:text-4xl font-bold text-white">Full-Stack Cloud Architecture</h2>
-      <p class="text-slate-400 mt-3 text-sm">Built on carrier-grade gRPC messaging, resilient HTTP dispatchers, and containerized cloud workers.</p>
+  <!-- Cloud Architecture & Primitives Section -->
+  <section id="architecture" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/[0.06] relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold mb-2">Under The Hood</div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Full-Stack Cloud Architecture</h2>
+      <p class="text-slate-400 mt-3 text-sm sm:text-base">Built upon carrier gRPC streaming, resilient HTTP dispatchers, and containerized cloud workers.</p>
     </div>
 
+    <!-- Architectural Flow Diagram -->
+    <div class="glass-panel p-8 rounded-3xl mb-12 subtle-ring">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center text-center">
+        
+        <div class="p-4 rounded-2xl bg-black/40 border border-white/[0.06]">
+          <div class="text-xs font-mono font-bold text-slate-300">1. User Phone</div>
+          <div class="text-[11px] text-slate-500 mt-1">Tapback Heart / Text</div>
+        </div>
+
+        <div class="hidden md:flex justify-center text-indigo-400 font-mono text-xs">──→</div>
+
+        <div class="p-4 rounded-2xl bg-indigo-950/20 border border-indigo-500/30">
+          <div class="text-xs font-mono font-bold text-indigo-300">2. Photon Spectrum</div>
+          <div class="text-[11px] text-slate-400 mt-1">Carrier Gateway (gRPC)</div>
+        </div>
+
+        <div class="hidden md:flex justify-center text-indigo-400 font-mono text-xs">──→</div>
+
+        <div class="p-4 rounded-2xl bg-black/40 border border-white/[0.06]">
+          <div class="text-xs font-mono font-bold text-slate-300">3. BailMeOut Worker</div>
+          <div class="text-[11px] text-slate-500 mt-1">Escalation State Machine</div>
+        </div>
+
+      </div>
+
+      <div class="mt-6 pt-6 border-t border-white/[0.06] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-center">
+        <div class="p-3 rounded-xl bg-purple-950/20 border border-purple-500/30 text-xs font-mono text-purple-300">
+          ElevenLabs API (Audio Memo)
+        </div>
+        <div class="p-3 rounded-xl bg-red-950/20 border border-red-500/30 text-xs font-mono text-red-300">
+          Twilio Voice (Cellular PSTN Dial)
+        </div>
+        <div class="p-3 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-xs font-mono text-emerald-300">
+          Uber Deep Link (Ride Getaway)
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech Badges -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       
-      <div class="glass-panel p-6 rounded-2xl">
+      <div class="glass-panel p-6 rounded-3xl subtle-ring">
         <div class="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center font-mono font-bold text-indigo-400 text-sm mb-4">
           PS
         </div>
-        <h3 class="text-base font-bold text-white">Photon Spectrum</h3>
+        <h3 class="text-base font-bold text-white">Photon Spectrum Gateway</h3>
         <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-          Maintains an Apple iMessage carrier gateway. Detects incoming reactions, handles tapbacks natively, and delivers instant bidirectional Apple messages over gRPC.
+          Provides bidirectional carrier-level iMessage bridging. Receives instant reaction packets and tapback updates via persistent gRPC event streams.
         </p>
       </div>
 
-      <div class="glass-panel p-6 rounded-2xl">
+      <div class="glass-panel p-6 rounded-3xl subtle-ring">
         <div class="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center font-mono font-bold text-purple-400 text-sm mb-4">
           11L
         </div>
         <h3 class="text-base font-bold text-white">ElevenLabs Voice AI</h3>
         <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-          Synthesizes high-fidelity voice notes with emotional tone modulation, stress inflections, and native Apple M4A container encoding for authentic speaker playback.
+          Generates context-aware vocal memos with emotional distress inflections and natural pauses, wrapped inside native Apple AAC audio containers.
         </p>
       </div>
 
-      <div class="glass-panel p-6 rounded-2xl">
+      <div class="glass-panel p-6 rounded-3xl subtle-ring">
         <div class="w-10 h-10 rounded-xl bg-red-600/20 border border-red-500/40 flex items-center justify-center font-mono font-bold text-red-400 text-sm mb-4">
           TW
         </div>
-        <h3 class="text-base font-bold text-white">Twilio Voice & TwiML</h3>
+        <h3 class="text-base font-bold text-white">Twilio Cellular Voice</h3>
         <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-          Places automated outbound PSTN phone calls directly to your device via Polly speech engines. Twimlet endpoints guarantee immediate audible delivery upon answering.
+          Places automated outbound PSTN calls directly to your target cellular number. Twimlet endpoints deliver speech immediately when answered.
         </p>
       </div>
 
     </div>
   </section>
 
+  <!-- Objection Killer / FAQ Section -->
+  <section id="faq" class="max-w-4xl mx-auto px-6 py-20 border-t border-white/[0.06] relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 font-semibold mb-2">Clarity & Details</div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="space-y-4">
+      
+      <div class="glass-panel p-6 rounded-2xl subtle-ring">
+        <h3 class="text-sm font-bold text-white">Can anyone tell that BailMeOut is an automated bot?</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+          No. The message bubbles appear in authentic native iMessage blue. The audio memos are native voice notes recorded with human-like breathing and background noise. The phone call arrives through real cellular telephone networks from an actual telephone number.
+        </p>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl subtle-ring">
+        <h3 class="text-sm font-bold text-white">How do I trigger an escape if my phone is on the table?</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+          Simply double-tap any message in your BailMeOut iMessage thread and tap the Heart reaction icon. You do not need to type, unlock a special app, or look down.
+        </p>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl subtle-ring">
+        <h3 class="text-sm font-bold text-white">Does my computer need to stay awake or turned on?</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+          No. BailMeOut is deployed as an autonomous 24/7 background worker in the cloud (Railway / Render / Docker). Your alibi agent functions continuously even if your laptop is completely powered off.
+        </p>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl subtle-ring">
+        <h3 class="text-sm font-bold text-white">What is the Dead-Man's Switch feature?</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+          Text <span class="font-mono text-slate-300">"bail in 30m"</span> before heading into a date or meeting. If you haven't dismissed the check-in text, BailMeOut automatically fires the full extraction cascade at the designated minute.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Final CTA Banner -->
+  <section class="max-w-5xl mx-auto px-6 py-20 text-center relative z-10">
+    <div class="glass-panel-glow p-10 sm:p-14 rounded-3xl relative overflow-hidden">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Never Be Trapped Again.</h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-4 leading-relaxed">
+          Deploy BailMeOut to your cloud in 2 minutes, connect your iMessage thread, and enjoy complete social escape insurance wherever you go.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="px-7 py-3 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition shadow-lg shadow-indigo-600/30">
+            Deploy on GitHub
+          </a>
+          <a href="#simulator" class="px-7 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:text-white bg-white/5 border border-white/10 hover:border-white/20 transition">
+            Test Live Simulator
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer class="border-t border-white/5 py-12 px-6 text-center text-xs text-slate-500 font-mono">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+  <footer class="border-t border-white/[0.06] py-12 px-6 text-xs text-slate-500 font-mono relative z-10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>BailMeOut • Autonomous iMessage Social Extraction Agent</div>
       <div class="flex items-center gap-6">
         <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="hover:text-slate-300 transition">GitHub Repository</a>
@@ -501,8 +713,20 @@
     </div>
   </footer>
 
-  <!-- Simulator JavaScript Logic -->
+  <!-- Simulator & Telemetry Runtime Script -->
   <script>
+    // Live Clock in iPhone Status Bar
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      const clockEl = document.getElementById('iphone-clock');
+      if (clockEl) clockEl.innerText = `${hours}:${minutes}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
     let currentScenario = 'apartment_flood';
     let simulationTimer = null;
 
@@ -537,14 +761,14 @@
       currentScenario = scen;
       document.querySelectorAll('.scenario-btn').forEach(btn => {
         btn.classList.remove('border-indigo-500/40', 'bg-indigo-500/10');
-        btn.classList.add('border-white/5', 'bg-white/5');
+        btn.classList.add('border-white/[0.06]', 'bg-white/[0.03]');
       });
       const activeBtn = document.getElementById(
         scen === 'apartment_flood' ? 'btn-scen-flood' :
         scen === 'production_outage' ? 'btn-scen-outage' : 'btn-scen-pet'
       );
       if (activeBtn) {
-        activeBtn.classList.remove('border-white/5', 'bg-white/5');
+        activeBtn.classList.remove('border-white/[0.06]', 'bg-white/[0.03]');
         activeBtn.classList.add('border-indigo-500/40', 'bg-indigo-500/10');
       }
     }
@@ -556,8 +780,8 @@
 
       if (isAudio) {
         row.innerHTML = `
-          <div class="imessage-gray rounded-2xl ${isSender ? 'rounded-tr-sm' : 'rounded-tl-sm'} p-3 max-w-[85%] shadow border border-white/5">
-            <div class="flex items-center gap-2 mb-1">
+          <div class="imessage-gray rounded-2xl ${isSender ? 'rounded-tr-sm' : 'rounded-tl-sm'} p-3 max-w-[85%] shadow border border-white/[0.06]">
+            <div class="flex items-center gap-2 mb-1.5">
               <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] text-white font-bold">▶</div>
               <span class="font-bold text-[11px] text-white">Audio Memo (ElevenLabs M4A)</span>
             </div>
@@ -575,17 +799,17 @@
         `;
       } else if (hasAction) {
         row.innerHTML = `
-          <div class="imessage-gray rounded-2xl ${isSender ? 'rounded-tr-sm' : 'rounded-tl-sm'} p-3 max-w-[85%] shadow border border-red-500/30">
-            <div class="text-[10px] font-mono font-bold text-red-400 uppercase tracking-wider mb-1">Emergency Proof Card</div>
-            <p class="text-[11px] text-slate-200 mb-2">${text}</p>
-            <a href="https://m.uber.com" target="_blank" class="block w-full text-center py-1.5 px-3 rounded-lg bg-black text-white text-[11px] font-bold border border-white/20 hover:bg-neutral-900 transition">
+          <div class="imessage-gray rounded-2xl ${isSender ? 'rounded-tr-sm' : 'rounded-tl-sm'} p-3.5 max-w-[85%] shadow border border-red-500/30">
+            <div class="text-[10px] font-mono font-bold text-red-400 uppercase tracking-wider mb-1.5">Dispatch Confirmation</div>
+            <p class="text-[11px] text-slate-200 mb-3 leading-relaxed">${text}</p>
+            <a href="https://m.uber.com" target="_blank" class="block w-full text-center py-2 px-3 rounded-xl bg-black text-white text-[11px] font-bold border border-white/20 hover:bg-neutral-900 transition">
               1-Tap Uber Ride Getaway
             </a>
           </div>
         `;
       } else {
         row.innerHTML = `
-          <div class="${isSender ? 'imessage-blue' : 'imessage-gray'} rounded-2xl ${isSender ? 'rounded-tr-sm' : 'rounded-tl-sm'} px-3.5 py-2.5 max-w-[82%] leading-relaxed shadow">
+          <div class="${isSender ? 'imessage-blue' : 'imessage-gray'} rounded-2xl ${isSender ? 'rounded-tr-sm' : 'rounded-tl-sm'} px-4 py-2.5 max-w-[82%] leading-relaxed shadow border border-white/[0.04]">
             ${text}
           </div>
         `;
@@ -595,11 +819,20 @@
       stream.scrollTop = stream.scrollHeight;
     }
 
+    function showTyping(show = true) {
+      const indicator = document.getElementById('typing-indicator');
+      if (indicator) {
+        if (show) indicator.classList.remove('hidden');
+        else indicator.classList.add('hidden');
+      }
+    }
+
     function startExtractionCascade(triggerType) {
       resetSimulator();
       const scen = scenarios[currentScenario];
       const status = document.getElementById('telemetry-status');
       const progress = document.getElementById('timeline-progress');
+      const sec = document.getElementById('timeline-sec');
 
       if (triggerType === 'heart') {
         const anchor = document.getElementById('bot-anchor-message');
@@ -607,41 +840,50 @@
         badge.className = 'tapback-heart';
         badge.innerText = 'Loved';
         anchor.appendChild(badge);
-        status.innerText = 'Tapback Detected (Carrier gRPC)';
+        status.innerText = 'Carrier Reaction Match';
       } else {
         addMessage('code red', true);
         status.innerText = 'Safe Word Match: "code red"';
       }
 
       progress.style.width = '20%';
+      sec.innerText = 'T+0s (Trigger Ingested)';
+      showTyping(true);
 
       // T+2s: Stage 2 Urgent SMS
       simulationTimer = setTimeout(() => {
+        showTyping(false);
         addMessage(scen.sms, false);
-        status.innerText = 'Stage 2: Plausible SMS Injected';
+        status.innerText = 'Stage 2: Urgent SMS Injected';
         progress.style.width = '45%';
-      }, 1400);
+        sec.innerText = 'T+2s (SMS Delivered)';
+        showTyping(true);
+      }, 1500);
 
       // T+5s: Stage 3 Audio Memo
       setTimeout(() => {
+        showTyping(false);
         addMessage(scen.voiceText, false, true);
         status.innerText = 'Stage 3: ElevenLabs Audio Memo Injected';
         progress.style.width = '70%';
-      }, 3200);
+        sec.innerText = 'T+6s (Audio Note)';
+      }, 3400);
 
       // T+8s: Stage 4 Dispatch Card & Uber link
       setTimeout(() => {
         addMessage('Dispatch verified: Emergency technician deployed to residence. Immediate physical key access required.', false, false, true);
         status.innerText = 'Stage 4: Verification Card & Escape Link';
         progress.style.width = '85%';
-      }, 4800);
+        sec.innerText = 'T+12s (Verification Card)';
+      }, 5200);
 
       // T+12s: Stage 5 PSTN Phone Call
       setTimeout(() => {
         triggerCallModal(scen);
         status.innerText = 'Stage 5: Live Twilio Phone Call Inbound';
         progress.style.width = '100%';
-      }, 6500);
+        sec.innerText = 'T+25s (Cellular Call Inbound)';
+      }, 7200);
     }
 
     function triggerTapbackHeart() {
@@ -656,10 +898,32 @@
       resetSimulator();
       addMessage('call me', true);
       const scen = scenarios[currentScenario];
+      showTyping(true);
       setTimeout(() => {
+        showTyping(false);
         addMessage('Emergency call inbound right now...', false);
         setTimeout(() => triggerCallModal(scen), 1200);
       }, 800);
+    }
+
+    function sendCustomInput() {
+      const input = document.getElementById('user-custom-input');
+      const val = input.value.trim();
+      if (!val) return;
+      input.value = '';
+
+      if (val.toLowerCase().includes('code red') || val.toLowerCase().includes('bail')) {
+        startExtractionCascade('safeword');
+      } else if (val.toLowerCase().includes('call me') || val.toLowerCase().includes('ring me')) {
+        triggerDirectCall();
+      } else {
+        addMessage(val, true);
+        showTyping(true);
+        setTimeout(() => {
+          showTyping(false);
+          addMessage(`Safe word unrecognized. Send "code red" or double-tap any message with a Heart reaction to trigger an emergency alibi.`);
+        }, 1000);
+      }
     }
 
     function triggerCallModal(scen) {
@@ -675,23 +939,25 @@
     }
 
     function acceptCall() {
-      alert('Call Connected! Audio playing through speaker: ' + scenarios[currentScenario].callText);
+      alert('Cellular Call Connected! Synthetic audio playing through speaker: ' + scenarios[currentScenario].callText);
       dismissCall();
     }
 
     function resetSimulator() {
       if (simulationTimer) clearTimeout(simulationTimer);
+      showTyping(false);
       const stream = document.getElementById('chat-stream');
       stream.innerHTML = `
         <div class="flex justify-start">
-          <div id="bot-anchor-message" class="relative imessage-gray rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[82%] leading-relaxed shadow">
+          <div id="bot-anchor-message" class="relative imessage-gray rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] leading-relaxed shadow border border-white/[0.04]">
             Hey, are you free to chat? Double-tap this message with a Heart reaction if you need an alibi right now.
           </div>
         </div>
       `;
       dismissCall();
-      document.getElementById('telemetry-status').innerText = 'Standby (Idle)';
+      document.getElementById('telemetry-status').innerText = 'System Armed';
       document.getElementById('timeline-progress').style.width = '0%';
+      document.getElementById('timeline-sec').innerText = 'T+0s';
     }
   </script>
 </body>
