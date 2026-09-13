@@ -99,6 +99,9 @@
 </head>
 <body class="min-h-screen grid-bg selection:bg-indigo-600 selection:text-white">
 
+  <!-- Hidden Audio Player Elements -->
+  <audio id="alibi-audio-player" preload="auto"></audio>
+
   <!-- Ambient Light Glow Accents -->
   <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-indigo-100/70 via-rose-50/40 to-transparent blur-[120px] pointer-events-none z-0"></div>
   <div class="fixed bottom-0 right-0 w-[600px] h-[500px] bg-indigo-50/50 blur-[140px] pointer-events-none z-0"></div>
@@ -194,15 +197,15 @@
     </div>
   </section>
 
-  <!-- Interactive iPhone 16 Pro Simulator -->
+  <!-- Interactive iPhone Simulator Section -->
   <section id="simulator" class="max-w-7xl mx-auto px-6 py-20 relative z-10">
     <div class="text-center max-w-2xl mx-auto mb-14">
       <div class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-semibold mb-2">Tactile Hardware Simulation</div>
       <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">Interactive Live Testbench</h2>
-      <p class="text-slate-600 mt-3 text-sm sm:text-base">Experience the full escape protocol exactly as it behaves on an iPhone 16 Pro.</p>
+      <p class="text-slate-600 mt-3 text-sm sm:text-base">Experience the full escape protocol exactly as it looks and functions on iPhone iMessage.</p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
       
       <!-- Control Deck (Left Column) -->
       <div class="lg:col-span-6 space-y-6">
@@ -265,7 +268,7 @@
               Send "call me" (Direct Dial)
             </button>
             <button onclick="resetSimulator()" class="p-3 rounded-xl bg-white border border-slate-300 hover:border-slate-400 text-slate-600 text-xs font-mono transition text-center font-medium shadow-sm">
-              Reset Simulator
+              Show Full Phone Thread
             </button>
           </div>
 
@@ -283,57 +286,146 @@
 
       </div>
 
-      <!-- iPhone 16 Pro Hardware Mockup (Right Column) -->
+      <!-- iPhone Hardware Frame (Replicated Exactly from User Screenshot) -->
       <div class="lg:col-span-6 flex justify-center">
-        <div class="w-[370px] sm:w-[395px] h-[750px] rounded-[52px] border-[8px] border-[#1e2025] bg-[#ffffff] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.18)] relative overflow-hidden flex flex-col font-sans select-none">
+        <div class="w-[375px] sm:w-[400px] h-[810px] rounded-[52px] border-[10px] border-[#1c1d22] bg-[#ffffff] shadow-[0_25px_70px_-15px_rgba(0,0,0,0.22)] relative overflow-hidden flex flex-col font-sans select-none">
           
-          <!-- iPhone Dynamic Island -->
-          <div class="h-11 w-full flex items-center justify-center relative pt-2 z-30">
-            <div class="w-32 h-7 bg-black rounded-full flex items-center justify-between px-3 border border-white/10 shadow-sm">
-              <div class="w-2 h-2 rounded-full bg-neutral-900"></div>
-              <div class="w-2.5 h-2.5 rounded-full bg-[#111] border border-white/10"></div>
-            </div>
-          </div>
-
-          <!-- iPhone Status Bar -->
-          <div class="px-7 py-1 flex items-center justify-between text-[11px] font-semibold text-slate-900 z-20">
-            <span id="iphone-clock">9:41</span>
+          <!-- iPhone Status Bar (Exact Replica: 6:14, LTE, Signal, Battery) -->
+          <div class="pt-3 px-7 flex items-center justify-between text-[14px] font-semibold text-black z-20">
+            <span id="iphone-clock" class="font-bold">6:14</span>
             <div class="flex items-center gap-1.5">
-              <!-- Signal Bars SVG -->
-              <svg class="w-3.5 h-3 fill-current text-slate-900" viewBox="0 0 24 24"><path d="M2 17h3v5H2zm5-4h3v9H7zm5-4h3v13h-3zm5-5h3v18h-3z"/></svg>
-              <span class="text-[10px] font-mono text-slate-900">5G</span>
-              <!-- Battery SVG -->
-              <svg class="w-4 h-3 fill-current text-slate-900" viewBox="0 0 24 24"><path d="M17 6H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2v-1h2c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1h-2V8c0-1.1-.9-2-2-2zm0 10H4V8h13v8z"/></svg>
+              <!-- 4 Vertical Signal Bars -->
+              <div class="flex items-end gap-[1.5px] h-3">
+                <span class="w-[3px] h-1.5 bg-black rounded-sm"></span>
+                <span class="w-[3px] h-2 bg-black rounded-sm"></span>
+                <span class="w-[3px] h-2.5 bg-black rounded-sm"></span>
+                <span class="w-[3px] h-3 bg-black rounded-sm"></span>
+              </div>
+              <span class="text-[12px] font-bold tracking-tight">LTE</span>
+              <!-- Battery Icon with Fill -->
+              <div class="w-5 h-2.5 border-[1.5px] border-black rounded-[4px] p-[1px] flex items-center">
+                <div class="w-full h-full bg-black rounded-[2px]"></div>
+              </div>
             </div>
           </div>
 
-          <!-- iMessage Navigation Bar -->
-          <div class="px-4 py-2.5 border-b border-slate-100 flex items-center justify-between bg-white/95 backdrop-blur-md z-20">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-slate-200 to-slate-300 flex items-center justify-center font-bold text-xs text-slate-700 shadow-inner">
-                BM
+          <!-- iMessage Navigation Bar (Exact Replica from Screenshot) -->
+          <div class="px-4 py-2 border-b border-slate-200 flex items-center justify-between bg-white/95 backdrop-blur-md z-20">
+            <!-- Left: Back Arrow with 613 Pill -->
+            <div class="flex items-center gap-1 cursor-pointer">
+              <svg class="w-5 h-5 text-blue-600 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/></svg>
+              <span class="bg-black text-white text-[11px] font-bold px-2 py-0.5 rounded-full">613</span>
+            </div>
+
+            <!-- Center: Contact Avatar with B + BailMeOut › -->
+            <div class="flex flex-col items-center justify-center">
+              <div class="w-11 h-11 rounded-full bg-[#8a9cb8] flex items-center justify-center text-white font-bold text-xl shadow-sm">
+                B
               </div>
-              <div>
-                <div class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                  <span>BailMeOut</span>
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                </div>
-                <div class="text-[10px] text-slate-500 font-medium">iMessage (Photon Carrier)</div>
+              <div class="flex items-center gap-0.5 mt-0.5">
+                <span class="text-[13px] font-bold text-black">BailMeOut</span>
+                <svg class="w-3 h-3 text-slate-400 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
               </div>
             </div>
-            <span class="text-[9px] font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
-              ONLINE
-            </span>
+
+            <!-- Right: FaceTime Video Camera Icon -->
+            <div class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-800">
+              <svg class="w-5 h-5 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="2" y="6" width="13" height="12" rx="3"></rect>
+                <path d="M15 10l5-3v10l-5-3v-4z"></path>
+              </svg>
+            </div>
           </div>
 
           <!-- Chat Conversation Scroll Area -->
-          <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-4 text-xs bg-[#ffffff]">
+          <div id="chat-stream" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-[15px] bg-[#ffffff]">
             
-            <!-- Default Bot Prompt Message -->
+            <!-- Message 1: Urgent SMS -->
             <div class="flex justify-start">
-              <div id="bot-anchor-message" class="relative imessage-gray rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] leading-relaxed shadow-sm">
-                Hey, are you free to chat? Double-tap this message with a Heart reaction if you need an alibi right now.
+              <div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-3 max-w-[85%] leading-[1.35] text-black">
+                URGENT: This is building management. Water is pouring through the ceiling into apartment 2B right below yours. Are you home right now??
               </div>
+            </div>
+
+            <!-- Message 2: Incoming Voicemail Transcript -->
+            <div class="flex justify-start">
+              <div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-3 max-w-[85%] leading-[1.35] text-black">
+                Incoming Voicemail (0:14): "Hey, it is Dave from maintenance. We have a major leak, water is backing up fast, we need entry immediately to shut off the main valve. Please call me back!"
+              </div>
+            </div>
+
+            <!-- Message 3: Authentic Native iOS Voice Note Player -->
+            <div class="flex flex-col items-start">
+              <div class="imessage-gray rounded-full px-3.5 py-2 flex items-center gap-3 shadow-sm border border-slate-200/50">
+                <button onclick="toggleAudioPlay('assets/bailmeout-1.mp3')" class="w-7 h-7 rounded-full bg-[#007aff] hover:bg-blue-600 flex items-center justify-center text-white transition active:scale-95 shadow">
+                  <svg id="play-icon-svg" class="w-3.5 h-3.5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <!-- Native Apple Waveform Bars -->
+                <div class="flex items-center gap-[2.5px] h-6" id="waveform-container">
+                  <span class="w-[2.5px] h-2 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-4 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-5 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-3 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-6 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-4 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-2 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-5 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-6 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-3 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-4 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-2 bg-[#007aff] rounded-full"></span>
+                  <span class="w-[2.5px] h-3 bg-[#007aff] rounded-full"></span>
+                </div>
+                <span id="audio-timer-display" class="text-[13px] font-mono text-[#8e8e93] font-medium ml-1">00:00</span>
+              </div>
+              <div class="flex items-center gap-3 text-[11px] font-medium mt-1 ml-3">
+                <span class="text-[#8e8e93]">Raise to listen</span>
+                <button onclick="toggleAudioPlay('assets/bailmeout-1.mp3')" class="text-[#007aff] font-semibold hover:underline">Play All (2)</button>
+              </div>
+            </div>
+
+            <!-- Message 4: Tenant photo text -->
+            <div class="flex justify-start">
+              <div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-3 max-w-[85%] leading-[1.35] text-black">
+                Tenant downstairs just sent this photo. We are cutting water to the entire riser in 10 minutes if you cannot get here.
+              </div>
+            </div>
+
+            <!-- Message 5: Native SVG File Attachment Card (proof_leak.svg) -->
+            <div class="flex justify-start">
+              <div class="imessage-gray rounded-[18px] p-3 max-w-[80%] flex items-center gap-3.5 border border-slate-200/70 shadow-sm cursor-pointer hover:bg-slate-200 transition" onclick="window.open('assets/proof_leak.svg', '_blank')">
+                <!-- White Document Sheet with Corner Fold -->
+                <div class="w-11 h-14 bg-white rounded-lg border border-slate-200 shadow-sm relative flex flex-col items-center justify-center p-1">
+                  <div class="w-2.5 h-2.5 bg-slate-100 absolute top-0 right-0 border-l border-b border-slate-200"></div>
+                  <!-- Picture landscape glyph -->
+                  <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                  <span class="text-[8px] font-mono font-bold text-slate-400 mt-0.5">SVG</span>
+                </div>
+                <div class="flex flex-col">
+                  <span class="font-bold text-black text-[14px]">proof_leak.svg</span>
+                  <span class="text-[12px] text-[#8e8e93]">Image · 6 KB</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Message 6: Emergency ride text -->
+            <div class="flex justify-start">
+              <div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-2.5 max-w-[85%] leading-[1.35] text-black">
+                Emergency ride pre-set:
+              </div>
+            </div>
+
+            <!-- Message 7: Uber Rich Link Preview Card -->
+            <div class="flex justify-start">
+              <a href="https://m.uber.com" target="_blank" class="block w-[80%] imessage-gray rounded-[18px] overflow-hidden border border-slate-200/70 shadow-sm hover:opacity-90 transition">
+                <div class="h-28 bg-gradient-to-b from-slate-200 to-slate-300 flex items-center justify-center text-slate-500 font-medium text-[13px]">
+                  Tap to Load Preview
+                </div>
+                <div class="px-3.5 py-2 flex items-center justify-between text-[12px] text-slate-500">
+                  <span>uber.com</span>
+                  <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </div>
+              </a>
             </div>
 
           </div>
@@ -347,17 +439,20 @@
             </div>
           </div>
 
-          <!-- Message Input Bar -->
-          <div class="p-3 bg-white border-t border-slate-100 flex items-center gap-2 z-20">
-            <button class="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 text-sm font-bold transition">
+          <!-- Message Input Bar (Exact Replica) -->
+          <div class="p-2.5 bg-white border-t border-slate-100 flex items-center gap-2 z-20">
+            <button class="w-8 h-8 rounded-full bg-[#e9e9eb] flex items-center justify-center text-[#8e8e93] text-lg font-medium">
               +
             </button>
-            <div class="flex-1 bg-slate-100/90 border border-slate-200 rounded-full px-3.5 py-1.5 text-xs text-slate-700 flex items-center justify-between">
-              <input id="user-custom-input" type="text" placeholder="iMessage" class="bg-transparent text-slate-900 placeholder-slate-400 focus:outline-none w-full text-xs" onkeydown="if(event.key==='Enter') sendCustomInput()">
+            <div class="flex-1 bg-white border border-slate-200 rounded-full px-3.5 py-1.5 text-xs text-slate-700 flex items-center justify-between shadow-sm">
+              <input id="user-custom-input" type="text" placeholder="iMessage" class="bg-transparent text-slate-900 placeholder-slate-400 focus:outline-none w-full text-[14px]" onkeydown="if(event.key==='Enter') sendCustomInput()">
+              <svg class="w-4 h-4 text-[#8e8e93]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 003-3V5a3 3 0 00-6 0v6a3 3 0 003 3z"/></svg>
             </div>
-            <button onclick="sendCustomInput()" class="w-7 h-7 rounded-full bg-[#007aff] hover:bg-blue-600 flex items-center justify-center text-white text-xs font-bold transition shadow">
-              ↑
-            </button>
+          </div>
+
+          <!-- iPhone Home Indicator Bar -->
+          <div class="pb-2 pt-1 flex justify-center bg-white">
+            <div class="w-32 h-1 bg-black rounded-full"></div>
           </div>
 
           <!-- Realistic iOS Incoming Call Modal Overlay -->
@@ -707,45 +802,43 @@
 
   <!-- Simulator & Telemetry Runtime Script -->
   <script>
-    // Live Clock in iPhone Status Bar
-    function updateClock() {
-      const now = new Date();
-      let hours = now.getHours();
-      let minutes = now.getMinutes();
-      minutes = minutes < 10 ? '0' + minutes : minutes;
-      const clockEl = document.getElementById('iphone-clock');
-      if (clockEl) clockEl.innerText = `${hours}:${minutes}`;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
     let currentScenario = 'apartment_flood';
     let simulationTimer = null;
+    let isAudioPlaying = false;
 
     const scenarios = {
       apartment_flood: {
         title: "Apartment Flood",
         caller: "Dave (Building Super)",
-        sms: "EMERGENCY: Water is pouring through the ceiling into unit 2B right below yours. Turn off your main water valve immediately. Are you home?!",
-        voiceText: "Urgent Voicemail: 'Water is pouring into 2B! Return immediately!'",
+        audioUrl: "assets/bailmeout-1.mp3",
+        proofFile: "proof_leak.svg",
+        proofSize: "6 KB",
+        sms: "URGENT: This is building management. Water is pouring through the ceiling into apartment 2B right below yours. Are you home right now??",
+        voiceText: 'Incoming Voicemail (0:14): "Hey, it is Dave from maintenance. We have a major leak, water is backing up fast, we need entry immediately to shut off the main valve. Please call me back!"',
+        photoText: "Tenant downstairs just sent this photo. We are cutting water to the entire riser in 10 minutes if you cannot get here.",
         callText: "Emergency alert! This is Dave from building maintenance. Water is pouring through the ceiling into apartment 2B right below yours. We need you to return immediately to cut the main valve!",
-        uberDeepLink: "https://m.uber.com/ul/?action=setPickup&client_id=bailmeout"
       },
       production_outage: {
         title: "Production Outage",
         caller: "CTO Sarah",
-        sms: "P0 OUTAGE: Stripe webhooks failing globally across checkout. We are losing $8,400/min. Join the incident bridge right now.",
-        voiceText: "Incident Voice Memo: 'All checkouts returning 500s. Join the bridge!'",
+        audioUrl: "assets/bailmeout-4.mp3",
+        proofFile: "proof_outage.svg",
+        proofSize: "4 KB",
+        sms: "P0 OUTAGE: Stripe webhooks failing globally. All checkout flows returning 500s. We need your auth key right now.",
+        voiceText: 'Incoming Voicemail (0:11): "Hey, sorry to disturb you, the replica database desynced and locked all table writes. Can you hop on the incident bridge ASAP?"',
+        photoText: "Grafana latency spike confirmed at 99.4% error rate. War room link: meet.google.com/emergency-bridge",
         callText: "P0 incident alert! Stripe webhooks are failing globally. All checkout flows are returning 500 errors. Join the incident war room bridge immediately!",
-        uberDeepLink: "https://m.uber.com/ul/?action=setPickup&client_id=bailmeout"
       },
       dog_escape: {
         title: "Escaped Dog",
         caller: "Neighbor Mike",
+        audioUrl: "assets/bailmeout-1.mp3",
+        proofFile: "proof_leak.svg",
+        proofSize: "5 KB",
         sms: "URGENT: Your back fence gate blew open in the wind. Barnaby was just spotted heading towards the main avenue. Call me immediately!",
-        voiceText: "Family Voice Memo: 'Barnaby escaped through the back gate!'",
+        voiceText: 'Incoming Voicemail (0:12): "Hey, Mike from next door! Your dog escaped through the back gate and ran towards the avenue. Call me right back!"',
+        photoText: "Neighbor saw him near the corner deli. We are trying to corner him now.",
         callText: "Urgent family alert! Your back gate blew open in the wind and your dog was spotted running down the street. Please call me back right away!",
-        uberDeepLink: "https://m.uber.com/ul/?action=setPickup&client_id=bailmeout"
       }
     };
 
@@ -763,52 +856,133 @@
         activeBtn.classList.remove('border-slate-200', 'bg-slate-50');
         activeBtn.classList.add('border-2', 'border-indigo-600', 'bg-indigo-50/80', 'shadow-sm');
       }
+      renderFullSnapshot();
     }
 
-    function addMessage(text, isSender = false, isAudio = false, hasAction = false) {
+    function renderFullSnapshot() {
+      const s = scenarios[currentScenario];
       const stream = document.getElementById('chat-stream');
-      const row = document.createElement('div');
-      row.className = `flex ${isSender ? 'justify-end' : 'justify-start'} animate-fade-in`;
+      stream.innerHTML = `
+        <div class="flex justify-start">
+          <div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-3 max-w-[85%] leading-[1.35] text-black">
+            ${s.sms}
+          </div>
+        </div>
 
-      if (isAudio) {
-        row.innerHTML = `
-          <div class="imessage-gray rounded-2xl ${isSender ? 'rounded-tr-sm' : 'rounded-tl-sm'} p-3 max-w-[85%] shadow-sm border border-slate-200/60">
-            <div class="flex items-center gap-2 mb-1.5">
-              <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] text-white font-bold">▶</div>
-              <span class="font-bold text-[11px] text-slate-900">Audio Memo (ElevenLabs M4A)</span>
+        <div class="flex justify-start">
+          <div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-3 max-w-[85%] leading-[1.35] text-black">
+            ${s.voiceText}
+          </div>
+        </div>
+
+        <div class="flex flex-col items-start">
+          <div class="imessage-gray rounded-full px-3.5 py-2 flex items-center gap-3 shadow-sm border border-slate-200/50">
+            <button onclick="toggleAudioPlay('${s.audioUrl}')" class="w-7 h-7 rounded-full bg-[#007aff] hover:bg-blue-600 flex items-center justify-center text-white transition active:scale-95 shadow">
+              <svg id="play-icon-svg" class="w-3.5 h-3.5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <div class="flex items-center gap-[2.5px] h-6" id="waveform-container">
+              <span class="w-[2.5px] h-2 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-4 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-5 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-3 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-6 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-4 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-2 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-5 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-6 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-3 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-4 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-2 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-3 bg-[#007aff] rounded-full"></span>
             </div>
-            <div class="flex items-center gap-1.5 my-2">
-              <span class="w-1 h-3 bg-indigo-600 rounded-full animate-pulse"></span>
-              <span class="w-1 h-5 bg-indigo-500 rounded-full animate-pulse"></span>
-              <span class="w-1 h-2 bg-indigo-600 rounded-full animate-pulse"></span>
-              <span class="w-1 h-6 bg-indigo-500 rounded-full animate-pulse"></span>
-              <span class="w-1 h-4 bg-indigo-600 rounded-full animate-pulse"></span>
-              <span class="w-1 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
-              <span class="text-[10px] font-mono text-slate-500 ml-2 font-medium">0:14</span>
+            <span id="audio-timer-display" class="text-[13px] font-mono text-[#8e8e93] font-medium ml-1">00:00</span>
+          </div>
+          <div class="flex items-center gap-3 text-[11px] font-medium mt-1 ml-3">
+            <span class="text-[#8e8e93]">Raise to listen</span>
+            <button onclick="toggleAudioPlay('${s.audioUrl}')" class="text-[#007aff] font-semibold hover:underline">Play All (2)</button>
+          </div>
+        </div>
+
+        <div class="flex justify-start">
+          <div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-3 max-w-[85%] leading-[1.35] text-black">
+            ${s.photoText}
+          </div>
+        </div>
+
+        <div class="flex justify-start">
+          <div class="imessage-gray rounded-[18px] p-3 max-w-[80%] flex items-center gap-3.5 border border-slate-200/70 shadow-sm cursor-pointer hover:bg-slate-200 transition" onclick="window.open('assets/${s.proofFile}', '_blank')">
+            <div class="w-11 h-14 bg-white rounded-lg border border-slate-200 shadow-sm relative flex flex-col items-center justify-center p-1">
+              <div class="w-2.5 h-2.5 bg-slate-100 absolute top-0 right-0 border-l border-b border-slate-200"></div>
+              <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              <span class="text-[8px] font-mono font-bold text-slate-400 mt-0.5">SVG</span>
             </div>
-            <p class="text-[10px] text-slate-600 italic">${text}</p>
+            <div class="flex flex-col">
+              <span class="font-bold text-black text-[14px]">${s.proofFile}</span>
+              <span class="text-[12px] text-[#8e8e93]">Image · ${s.proofSize}</span>
+            </div>
           </div>
-        `;
-      } else if (hasAction) {
-        row.innerHTML = `
-          <div class="imessage-gray rounded-2xl ${isSender ? 'rounded-tr-sm' : 'rounded-tl-sm'} p-3.5 max-w-[85%] shadow-sm border border-red-300 bg-red-50/50">
-            <div class="text-[10px] font-mono font-bold text-red-600 uppercase tracking-wider mb-1.5">Dispatch Confirmation</div>
-            <p class="text-[11px] text-slate-800 mb-3 leading-relaxed font-medium">${text}</p>
-            <a href="https://m.uber.com" target="_blank" class="block w-full text-center py-2 px-3 rounded-xl bg-black text-white text-[11px] font-bold hover:bg-neutral-800 transition shadow-sm">
-              1-Tap Uber Ride Getaway
-            </a>
+        </div>
+
+        <div class="flex justify-start">
+          <div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-2.5 max-w-[85%] leading-[1.35] text-black">
+            Emergency ride pre-set:
           </div>
-        `;
-      } else {
-        row.innerHTML = `
-          <div class="${isSender ? 'imessage-blue' : 'imessage-gray'} rounded-2xl ${isSender ? 'rounded-tr-sm' : 'rounded-tl-sm'} px-4 py-2.5 max-w-[82%] leading-relaxed shadow-sm">
-            ${text}
-          </div>
-        `;
+        </div>
+
+        <div class="flex justify-start">
+          <a href="https://m.uber.com" target="_blank" class="block w-[80%] imessage-gray rounded-[18px] overflow-hidden border border-slate-200/70 shadow-sm hover:opacity-90 transition">
+            <div class="h-28 bg-gradient-to-b from-slate-200 to-slate-300 flex items-center justify-center text-slate-500 font-medium text-[13px]">
+              Tap to Load Preview
+            </div>
+            <div class="px-3.5 py-2 flex items-center justify-between text-[12px] text-slate-500">
+              <span>uber.com</span>
+              <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        </div>
+      `;
+      stream.scrollTop = 0;
+      document.getElementById('telemetry-status').innerText = 'Phone Snapshot Active';
+      document.getElementById('timeline-sec').innerText = 'T+Complete';
+      document.getElementById('timeline-progress').style.width = '100%';
+    }
+
+    function toggleAudioPlay(url) {
+      const audio = document.getElementById('alibi-audio-player');
+      const icon = document.getElementById('play-icon-svg');
+      const timer = document.getElementById('audio-timer-display');
+      const waveform = document.getElementById('waveform-container');
+
+      if (!audio) return;
+
+      if (!audio.src.endsWith(url) || audio.src === '') {
+        audio.src = url;
       }
 
-      stream.appendChild(row);
-      stream.scrollTop = stream.scrollHeight;
+      if (isAudioPlaying) {
+        audio.pause();
+        isAudioPlaying = false;
+        if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+      } else {
+        audio.play().then(() => {
+          isAudioPlaying = true;
+          if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+        }).catch(() => {});
+      }
+
+      audio.ontimeupdate = () => {
+        if (!timer) return;
+        const cur = Math.floor(audio.currentTime);
+        const mins = String(Math.floor(cur / 60)).padStart(2, '0');
+        const secs = String(cur % 60).padStart(2, '0');
+        timer.innerText = `${mins}:${secs}`;
+      };
+
+      audio.onended = () => {
+        isAudioPlaying = false;
+        if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+        if (timer) timer.innerText = '00:00';
+      };
     }
 
     function showTyping(show = true) {
@@ -820,62 +994,118 @@
     }
 
     function startExtractionCascade(triggerType) {
-      resetSimulator();
-      const scen = scenarios[currentScenario];
+      if (simulationTimer) clearTimeout(simulationTimer);
+      const s = scenarios[currentScenario];
+      const stream = document.getElementById('chat-stream');
       const status = document.getElementById('telemetry-status');
       const progress = document.getElementById('timeline-progress');
       const sec = document.getElementById('timeline-sec');
 
+      // Clear to initial state with trigger
+      stream.innerHTML = '';
+
       if (triggerType === 'heart') {
-        const anchor = document.getElementById('bot-anchor-message');
-        const badge = document.createElement('div');
-        badge.className = 'tapback-heart';
-        badge.innerText = 'Loved';
-        anchor.appendChild(badge);
-        status.innerText = 'Carrier Reaction Match';
+        stream.innerHTML = `
+          <div class="flex justify-end">
+            <div class="imessage-blue relative rounded-[20px] rounded-tr-sm px-4 py-2.5 max-w-[80%] text-white">
+              Hey, you there?
+              <div class="tapback-heart shadow">Loved</div>
+            </div>
+          </div>
+        `;
+        status.innerText = 'Heart Reaction Match';
       } else {
-        addMessage('code red', true);
-        status.innerText = 'Safe Word Match: "code red"';
+        stream.innerHTML = `
+          <div class="flex justify-end">
+            <div class="imessage-blue rounded-[20px] rounded-tr-sm px-4 py-2.5 max-w-[80%] text-white font-mono">
+              code red
+            </div>
+          </div>
+        `;
+        status.innerText = 'Safe Word: "code red"';
       }
 
-      progress.style.width = '20%';
-      sec.innerText = 'T+0s (Trigger Ingested)';
+      progress.style.width = '15%';
+      sec.innerText = 'T+0s';
       showTyping(true);
 
-      // T+2s: Stage 2 Urgent SMS
+      // T+1.5s: SMS
       simulationTimer = setTimeout(() => {
         showTyping(false);
-        addMessage(scen.sms, false);
-        status.innerText = 'Stage 2: Urgent SMS Injected';
-        progress.style.width = '45%';
-        sec.innerText = 'T+2s (SMS Delivered)';
+        const row = document.createElement('div');
+        row.className = 'flex justify-start';
+        row.innerHTML = `<div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-3 max-w-[85%] leading-[1.35] text-black">${s.sms}</div>`;
+        stream.appendChild(row);
+        stream.scrollTop = stream.scrollHeight;
+        status.innerText = 'Stage 2: SMS Arrived';
+        progress.style.width = '40%';
+        sec.innerText = 'T+2s';
         showTyping(true);
       }, 1500);
 
-      // T+5s: Stage 3 Audio Memo
+      // T+3.5s: Voice Note
       setTimeout(() => {
         showTyping(false);
-        addMessage(scen.voiceText, false, true);
-        status.innerText = 'Stage 3: ElevenLabs Audio Memo Injected';
-        progress.style.width = '70%';
-        sec.innerText = 'T+6s (Audio Note)';
-      }, 3400);
+        const row = document.createElement('div');
+        row.className = 'flex flex-col items-start';
+        row.innerHTML = `
+          <div class="imessage-gray rounded-full px-3.5 py-2 flex items-center gap-3 shadow-sm border border-slate-200/50">
+            <button onclick="toggleAudioPlay('${s.audioUrl}')" class="w-7 h-7 rounded-full bg-[#007aff] flex items-center justify-center text-white">
+              <svg class="w-3.5 h-3.5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <div class="flex items-center gap-[2.5px] h-6">
+              <span class="w-[2.5px] h-2 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-4 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-5 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-3 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-6 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-4 bg-[#007aff] rounded-full"></span>
+              <span class="w-[2.5px] h-2 bg-[#007aff] rounded-full"></span>
+            </div>
+            <span class="text-[13px] font-mono text-[#8e8e93]">00:14</span>
+          </div>
+          <div class="flex items-center gap-3 text-[11px] font-medium mt-1 ml-3">
+            <span class="text-[#8e8e93]">Raise to listen</span>
+            <span class="text-[#007aff] font-semibold">Play All (2)</span>
+          </div>
+        `;
+        stream.appendChild(row);
+        stream.scrollTop = stream.scrollHeight;
+        status.innerText = 'Stage 3: Voice Note Inbound';
+        progress.style.width = '65%';
+        sec.innerText = 'T+6s';
+      }, 3500);
 
-      // T+8s: Stage 4 Dispatch Card & Uber link
+      // T+5.5s: Photo Proof & Uber
       setTimeout(() => {
-        addMessage('Dispatch verified: Emergency technician deployed to residence. Immediate physical key access required.', false, false, true);
-        status.innerText = 'Stage 4: Verification Card & Escape Link';
+        const row = document.createElement('div');
+        row.className = 'flex justify-start';
+        row.innerHTML = `
+          <div class="imessage-gray rounded-[18px] p-3 max-w-[80%] flex items-center gap-3.5 border border-slate-200/70 shadow-sm">
+            <div class="w-11 h-14 bg-white rounded-lg border border-slate-200 shadow-sm relative flex flex-col items-center justify-center p-1">
+              <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              <span class="text-[8px] font-mono font-bold text-slate-400 mt-0.5">SVG</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-bold text-black text-[14px]">${s.proofFile}</span>
+              <span class="text-[12px] text-[#8e8e93]">Image · ${s.proofSize}</span>
+            </div>
+          </div>
+        `;
+        stream.appendChild(row);
+        stream.scrollTop = stream.scrollHeight;
+        status.innerText = 'Stage 4: Proof & Getaway Link';
         progress.style.width = '85%';
-        sec.innerText = 'T+12s (Verification Card)';
-      }, 5200);
+        sec.innerText = 'T+12s';
+      }, 5500);
 
-      // T+12s: Stage 5 PSTN Phone Call
+      // T+7.5s: Incoming Call
       setTimeout(() => {
-        triggerCallModal(scen);
-        status.innerText = 'Stage 5: Live Twilio Phone Call Inbound';
+        triggerCallModal(s);
+        status.innerText = 'Stage 5: PSTN Phone Ringing';
         progress.style.width = '100%';
-        sec.innerText = 'T+25s (Cellular Call Inbound)';
-      }, 7200);
+        sec.innerText = 'T+25s (Cellular Call)';
+      }, 7500);
     }
 
     function triggerTapbackHeart() {
@@ -887,14 +1117,11 @@
     }
 
     function triggerDirectCall() {
-      resetSimulator();
-      addMessage('call me', true);
-      const scen = scenarios[currentScenario];
+      const s = scenarios[currentScenario];
       showTyping(true);
       setTimeout(() => {
         showTyping(false);
-        addMessage('Emergency call inbound right now...', false);
-        setTimeout(() => triggerCallModal(scen), 1200);
+        triggerCallModal(s);
       }, 800);
     }
 
@@ -909,12 +1136,21 @@
       } else if (val.toLowerCase().includes('call me') || val.toLowerCase().includes('ring me')) {
         triggerDirectCall();
       } else {
-        addMessage(val, true);
+        const stream = document.getElementById('chat-stream');
+        const userRow = document.createElement('div');
+        userRow.className = 'flex justify-end';
+        userRow.innerHTML = `<div class="imessage-blue rounded-[20px] rounded-tr-sm px-4 py-2.5 max-w-[80%] text-white text-[14px]">${val}</div>`;
+        stream.appendChild(userRow);
+        stream.scrollTop = stream.scrollHeight;
         showTyping(true);
         setTimeout(() => {
           showTyping(false);
-          addMessage(`Safe word unrecognized. Send "code red" or double-tap any message with a Heart reaction to trigger an emergency alibi.`);
-        }, 1000);
+          const botRow = document.createElement('div');
+          botRow.className = 'flex justify-start';
+          botRow.innerHTML = `<div class="imessage-gray rounded-[20px] rounded-tl-sm px-4 py-3 max-w-[85%] text-black text-[14px]">Send "code red" or double-tap with a Heart to trigger an emergency alibi.</div>`;
+          stream.appendChild(botRow);
+          stream.scrollTop = stream.scrollHeight;
+        }, 800);
       }
     }
 
@@ -936,21 +1172,11 @@
     }
 
     function resetSimulator() {
-      if (simulationTimer) clearTimeout(simulationTimer);
-      showTyping(false);
-      const stream = document.getElementById('chat-stream');
-      stream.innerHTML = `
-        <div class="flex justify-start">
-          <div id="bot-anchor-message" class="relative imessage-gray rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] leading-relaxed shadow-sm">
-            Hey, are you free to chat? Double-tap this message with a Heart reaction if you need an alibi right now.
-          </div>
-        </div>
-      `;
-      dismissCall();
-      document.getElementById('telemetry-status').innerText = 'System Armed';
-      document.getElementById('timeline-progress').style.width = '0%';
-      document.getElementById('timeline-sec').innerText = 'T+0s';
+      renderFullSnapshot();
     }
+
+    // Initialize with full accurate phone snapshot
+    renderFullSnapshot();
   </script>
 </body>
 </html>
