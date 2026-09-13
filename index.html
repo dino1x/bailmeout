@@ -44,13 +44,21 @@
     }
   </script>
   <style>
+    html {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+    }
     body {
       background-color: #ffffff;
       color: #0f172a;
       font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
       overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
       letter-spacing: -0.02em;
     }
     h1, h2, h3, h4 {
@@ -116,7 +124,12 @@
 
     /* 3D Rotating Video Cylinder Background Backdrop */
     :root {
-      --cylinder-radius: 280px;
+      --cylinder-radius: 190px;
+    }
+    @media (min-width: 480px) {
+      :root {
+        --cylinder-radius: 280px;
+      }
     }
     @media (min-width: 640px) {
       :root {
@@ -145,19 +158,30 @@
       perspective-origin: 50% 45%;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.38; /* reduced opacity in the background */
+      opacity: 0.38;
       mask-image: radial-gradient(ellipse 80% 70% at 50% 48%, black 25%, transparent 85%);
       -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 48%, black 25%, transparent 85%);
       overflow: visible;
     }
+    @media (max-width: 480px) {
+      .hero-3d-backdrop {
+        perspective: 900px;
+      }
+    }
 
     .carousel-3d-ring {
-      width: 240px;
-      height: 150px;
+      width: 180px;
+      height: 120px;
       position: relative;
       transform-style: preserve-3d;
       animation: rotateCylinder 45s linear infinite;
       will-change: transform;
+    }
+    @media (min-width: 480px) {
+      .carousel-3d-ring {
+        width: 240px;
+        height: 150px;
+      }
     }
     @media (min-width: 640px) {
       .carousel-3d-ring {
@@ -213,14 +237,15 @@
   <div class="fixed bottom-0 right-0 w-[600px] h-[500px] bg-indigo-50/50 blur-[140px] pointer-events-none z-0"></div>
 
   <!-- Navigation Bar -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 px-6 py-3 transition-all font-nav">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 px-4 sm:px-6 py-2.5 sm:py-3 transition-all font-nav">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
       
       <!-- Left: Brand Emblem & Title -->
-      <div class="flex items-center gap-3">
-        <a href="#" class="flex items-center gap-2.5 group">
-          <img src="assets/logo.png" alt="BailMeOut Logo" class="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105" />
-          <span class="font-brandLogo font-bold text-[21px] sm:text-[23px] text-slate-950 tracking-tight group-hover:text-black transition-colors leading-none">bailmeout</span>
+      <div class="flex items-center">
+        <a href="#" class="flex items-center gap-2 sm:gap-2.5 group">
+          <img src="assets/logo.png" alt="BailMeOut Logo" class="h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105" />
+          <span class="font-brandLogo font-bold text-[19px] sm:text-[23px] text-slate-950 tracking-tight group-hover:text-black transition-colors leading-none">bailmeout</span>
         </a>
       </div>
 
@@ -237,15 +262,15 @@
       </nav>
 
       <!-- Right: GitHub with Logo and Launch Simulator Pill -->
-      <div class="flex items-center gap-3 sm:gap-3.5">
+      <div class="flex items-center gap-2 sm:gap-3.5">
         <!-- GitHub with Logo -->
-        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" title="GitHub Repository • BailMeOut Core" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[13px] font-medium text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition shadow-sm tracking-[-0.01em]">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          <span class="font-medium">GitHub</span>
+        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" title="GitHub Repository • BailMeOut Core" class="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[12px] sm:text-[13px] font-medium text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition shadow-sm tracking-[-0.01em]">
+          <svg class="w-3.5 sm:w-4 h-3.5 sm:h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span class="hidden sm:inline font-medium">GitHub</span>
         </a>
 
         <!-- Action Pill Button -->
-        <a href="#simulator" class="px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-[13px] font-semibold bg-slate-900 hover:bg-black text-white transition shadow-sm active:scale-95 whitespace-nowrap tracking-[-0.01em]">
+        <a href="#simulator" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs sm:text-[13px] font-semibold bg-slate-900 hover:bg-black text-white transition shadow-sm active:scale-95 whitespace-nowrap tracking-[-0.01em]">
           Launch Simulator
         </a>
       </div>
@@ -254,7 +279,7 @@
   </header>
 
   <!-- Hero Section with 3D Rotating Video Background Backdrop -->
-  <section class="relative w-full overflow-hidden pt-20 pb-20 px-6 text-center">
+  <section class="relative w-full overflow-hidden pt-12 sm:pt-20 pb-12 sm:pb-20 px-4 sm:px-6 text-center">
     
     <!-- 3D Rotating Video Cylinder Background (Reduced Opacity) -->
     <div class="hero-3d-backdrop" aria-hidden="true">
@@ -295,100 +320,100 @@
 
     <!-- Foreground Content Layer: Header, Title & Actions On Top of Background -->
     <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
-      <h1 class="hero-editorial-title text-5xl sm:text-7xl lg:text-[80px] font-normal text-slate-950 max-w-4xl mx-auto leading-[1.07] tracking-[-0.015em]">
+      <h1 class="hero-editorial-title text-3xl sm:text-5xl md:text-6xl lg:text-[76px] xl:text-[80px] font-normal text-slate-950 max-w-4xl mx-auto leading-[1.12] sm:leading-[1.07] tracking-[-0.015em] break-words">
         The autonomous safe word that bails you out of <span class="italic font-serif">bad dates</span> and <span class="italic font-serif">hostage meetings</span>.
       </h1>
 
-      <p class="mt-6 text-[15px] sm:text-[16px] text-slate-600 max-w-xl mx-auto leading-relaxed font-normal">
+      <p class="mt-4 sm:mt-6 text-[14px] sm:text-[16px] text-slate-600 max-w-xl mx-auto leading-relaxed font-normal px-2">
         Discreetly double-tap any message with an Apple Heart reaction under the table.<br class="hidden sm:inline" />
         BailMeOut executes an inescapable 4-tier verifiable emergency cascade.
       </p>
 
-      <div class="mt-9 flex flex-wrap items-center justify-center gap-3.5">
-        <a href="#simulator" class="px-7 py-3 rounded-full text-xs sm:text-[13px] font-semibold text-white bg-slate-900 hover:bg-black transition shadow-md active:scale-95 flex items-center gap-2">
+      <div class="mt-8 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-3.5 w-full max-w-xs sm:max-w-none mx-auto">
+        <a href="#simulator" class="w-full sm:w-auto px-6 sm:px-7 py-3 rounded-full text-xs sm:text-[13px] font-semibold text-white bg-slate-900 hover:bg-black transition shadow-md active:scale-95 flex items-center justify-center gap-2 min-h-[44px]">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span>Test Under-The-Table Trigger</span>
         </a>
-        <a href="#audio-lab" class="px-7 py-3 rounded-full text-xs sm:text-[13px] font-semibold text-slate-700 hover:text-slate-950 bg-white hover:bg-slate-50 border border-slate-200/90 transition shadow-sm">
+        <a href="#audio-lab" class="w-full sm:w-auto px-6 sm:px-7 py-3 rounded-full text-xs sm:text-[13px] font-semibold text-slate-700 hover:text-slate-950 bg-white hover:bg-slate-50 border border-slate-200/90 transition shadow-sm flex items-center justify-center min-h-[44px]">
           Listen to Alibi Audio Memos
         </a>
       </div>
 
       <!-- Live Telemetry Matrix -->
-      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 w-full text-left">
-        <div class="panel-card p-5 rounded-2xl bg-white/95 backdrop-blur-md">
-          <div class="text-[11px] font-mono text-slate-500 uppercase tracking-wider">Detection Mode</div>
-          <div class="text-xl font-bold text-slate-900 mt-1.5">Apple Tapback</div>
-          <div class="text-xs text-slate-500 mt-1">Zero-typing silent trigger via Heart reaction</div>
+      <div class="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 w-full text-left">
+        <div class="panel-card p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur-md">
+          <div class="text-[10px] sm:text-[11px] font-mono text-slate-500 uppercase tracking-wider">Detection Mode</div>
+          <div class="text-base sm:text-xl font-bold text-slate-900 mt-1 sm:mt-1.5">Apple Tapback</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Zero-typing silent trigger via Heart reaction</div>
         </div>
-        <div class="panel-card p-5 rounded-2xl bg-white/95 backdrop-blur-md">
-          <div class="text-[11px] font-mono text-slate-500 uppercase tracking-wider">Voice Synthesis</div>
-          <div class="text-xl font-bold text-slate-900 mt-1.5">ElevenLabs M4A</div>
-          <div class="text-xs text-slate-500 mt-1">Authentic distressed audio memo format</div>
+        <div class="panel-card p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur-md">
+          <div class="text-[10px] sm:text-[11px] font-mono text-slate-500 uppercase tracking-wider">Voice Synthesis</div>
+          <div class="text-base sm:text-xl font-bold text-slate-900 mt-1 sm:mt-1.5">ElevenLabs M4A</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Authentic distressed audio memo format</div>
         </div>
-        <div class="panel-card p-5 rounded-2xl bg-white/95 backdrop-blur-md">
-          <div class="text-[11px] font-mono text-slate-500 uppercase tracking-wider">Live Cellular Dial</div>
-          <div class="text-xl font-bold text-slate-900 mt-1.5">Twilio Voice API</div>
-          <div class="text-xs text-slate-500 mt-1">T+25s automated inbound PSTN ring</div>
+        <div class="panel-card p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur-md">
+          <div class="text-[10px] sm:text-[11px] font-mono text-slate-500 uppercase tracking-wider">Live Cellular Dial</div>
+          <div class="text-base sm:text-xl font-bold text-slate-900 mt-1 sm:mt-1.5">Twilio Voice API</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">T+25s automated inbound PSTN ring</div>
         </div>
-        <div class="panel-card p-5 rounded-2xl bg-white/95 backdrop-blur-md">
-          <div class="text-[11px] font-mono text-slate-500 uppercase tracking-wider">Hosting Guarantee</div>
-          <div class="text-xl font-bold text-emerald-600 mt-1.5">24/7 Cloud Worker</div>
-          <div class="text-xs text-slate-500 mt-1">Laptop shutdown and sleep proof</div>
+        <div class="panel-card p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur-md">
+          <div class="text-[10px] sm:text-[11px] font-mono text-slate-500 uppercase tracking-wider">Hosting Guarantee</div>
+          <div class="text-base sm:text-xl font-bold text-emerald-600 mt-1 sm:mt-1.5">24/7 Cloud Worker</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Laptop shutdown and sleep proof</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Interactive iPhone Simulator Section -->
-  <section id="simulator" class="max-w-7xl mx-auto px-6 py-20 relative z-10">
-    <div class="text-center max-w-2xl mx-auto mb-14">
+  <section id="simulator" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
       <div class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-semibold mb-2">Tactile Hardware Simulation</div>
       <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">Interactive Live Testbench</h2>
-      <p class="font-nav text-[15px] sm:text-[16px] text-slate-600 mt-3 max-w-xl mx-auto leading-relaxed font-normal">Experience the full escape protocol exactly as it looks and functions on iPhone iMessage.</p>
+      <p class="font-nav text-[14px] sm:text-[16px] text-slate-600 mt-3 max-w-xl mx-auto leading-relaxed font-normal px-2">Experience the full escape protocol exactly as it looks and functions on iPhone iMessage.</p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
       
       <!-- Control Deck (Left Column) -->
-      <div class="lg:col-span-6 space-y-6">
+      <div class="lg:col-span-6 space-y-5 sm:space-y-6">
         
         <!-- Step 1: Scenario Selector -->
-        <div class="panel-card p-6 rounded-3xl">
+        <div class="panel-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">1. Select Emergency Alibi Scenario</h3>
             <span class="text-[10px] font-mono text-slate-500">Context Engine</span>
           </div>
           
           <div class="space-y-3">
-            <button onclick="setScenario('apartment_flood')" id="btn-scen-flood" class="scenario-btn w-full text-left p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/80 transition shadow-sm">
+            <button onclick="setScenario('apartment_flood')" id="btn-scen-flood" class="scenario-btn w-full text-left p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 border-indigo-600 bg-indigo-50/80 transition shadow-sm">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-slate-900 text-sm">Apartment Flood (Home Maintenance)</span>
                 <span class="text-[11px] font-mono text-indigo-700 font-semibold">Super Dave</span>
               </div>
-              <p class="font-nav text-[13.5px] text-slate-600 mt-1.5 leading-relaxed font-normal">Pipes burst in apartment 2B right below yours. Demands urgent return home to shut off main valve.</p>
+              <p class="font-nav text-[13px] sm:text-[13.5px] text-slate-600 mt-1.5 leading-relaxed font-normal">Pipes burst in apartment 2B right below yours. Demands urgent return home to shut off main valve.</p>
             </button>
 
-            <button onclick="setScenario('production_outage')" id="btn-scen-outage" class="scenario-btn w-full text-left p-4 rounded-2xl border border-slate-200 bg-slate-50 hover:border-slate-300 transition">
+            <button onclick="setScenario('production_outage')" id="btn-scen-outage" class="scenario-btn w-full text-left p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50 hover:border-slate-300 transition">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-slate-900 text-sm">Production Outage (Work P0 Incident)</span>
                 <span class="text-[11px] font-mono text-slate-500 font-semibold">CTO Sarah</span>
               </div>
-              <p class="font-nav text-[13.5px] text-slate-600 mt-1.5 leading-relaxed font-normal">Global Stripe webhook failure across checkout. All checkouts returning 500s. Urgent war room call.</p>
+              <p class="font-nav text-[13px] sm:text-[13.5px] text-slate-600 mt-1.5 leading-relaxed font-normal">Global Stripe webhook failure across checkout. All checkouts returning 500s. Urgent war room call.</p>
             </button>
 
-            <button onclick="setScenario('dog_escape')" id="btn-scen-pet" class="scenario-btn w-full text-left p-4 rounded-2xl border border-slate-200 bg-slate-50 hover:border-slate-300 transition">
+            <button onclick="setScenario('dog_escape')" id="btn-scen-pet" class="scenario-btn w-full text-left p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50 hover:border-slate-300 transition">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-slate-900 text-sm">Escaped Dog (Family & Pet)</span>
                 <span class="text-[11px] font-mono text-slate-500 font-semibold">Neighbor Mike</span>
               </div>
-              <p class="font-nav text-[13.5px] text-slate-600 mt-1.5 leading-relaxed font-normal">Back gate blew open in high wind. Dog was spotted running towards the main avenue.</p>
+              <p class="font-nav text-[13px] sm:text-[13.5px] text-slate-600 mt-1.5 leading-relaxed font-normal">Back gate blew open in high wind. Dog was spotted running towards the main avenue.</p>
             </button>
           </div>
         </div>
 
         <!-- Step 2: Trigger Operations -->
-        <div class="panel-card p-6 rounded-3xl">
+        <div class="panel-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
           <div class="flex items-center justify-between mb-5">
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -397,24 +422,24 @@
             <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-gradient-to-b from-[#38393d] to-[#1f2023] text-[#a1a7b5] border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_4px_12px_rgba(0,0,0,0.22)] text-[12px] font-medium tracking-normal font-nav transition-all duration-200" id="telemetry-status">Phone Snapshot Active</span>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
             <!-- Button 1: Tapback Heart Reaction -->
-            <button onclick="triggerTapbackHeart()" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-b from-white to-[#edf0f4] hover:from-white hover:to-[#e4e7ec] shadow-[0_4px_18px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.11)] border border-slate-200/60 transition-all duration-200 active:scale-[0.98] text-[14px] font-medium text-slate-700 hover:text-slate-950 font-nav text-center flex items-center justify-center">
+            <button onclick="triggerTapbackHeart()" class="w-full py-3 sm:py-3.5 px-4 sm:px-6 rounded-full bg-gradient-to-b from-white to-[#edf0f4] hover:from-white hover:to-[#e4e7ec] shadow-[0_4px_18px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.11)] border border-slate-200/60 transition-all duration-200 active:scale-[0.98] text-[13.5px] sm:text-[14px] font-medium text-slate-700 hover:text-slate-950 font-nav text-center flex items-center justify-center min-h-[44px]">
               Tapback Heart Reaction
             </button>
 
             <!-- Button 2: Send "code red" -->
-            <button onclick="triggerSafeWord()" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-b from-white to-[#edf0f4] hover:from-white hover:to-[#e4e7ec] shadow-[0_4px_18px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.11)] border border-slate-200/60 transition-all duration-200 active:scale-[0.98] text-[14px] font-medium text-slate-700 hover:text-slate-950 font-nav text-center flex items-center justify-center">
+            <button onclick="triggerSafeWord()" class="w-full py-3 sm:py-3.5 px-4 sm:px-6 rounded-full bg-gradient-to-b from-white to-[#edf0f4] hover:from-white hover:to-[#e4e7ec] shadow-[0_4px_18px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.11)] border border-slate-200/60 transition-all duration-200 active:scale-[0.98] text-[13.5px] sm:text-[14px] font-medium text-slate-700 hover:text-slate-950 font-nav text-center flex items-center justify-center min-h-[44px]">
               Send "code red"
             </button>
 
             <!-- Button 3: Send "call me" -->
-            <button onclick="triggerDirectCall()" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-b from-white to-[#edf0f4] hover:from-white hover:to-[#e4e7ec] shadow-[0_4px_18px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.11)] border border-slate-200/60 transition-all duration-200 active:scale-[0.98] text-[14px] font-medium text-slate-700 hover:text-slate-950 font-nav text-center flex items-center justify-center">
+            <button onclick="triggerDirectCall()" class="w-full py-3 sm:py-3.5 px-4 sm:px-6 rounded-full bg-gradient-to-b from-white to-[#edf0f4] hover:from-white hover:to-[#e4e7ec] shadow-[0_4px_18px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.11)] border border-slate-200/60 transition-all duration-200 active:scale-[0.98] text-[13.5px] sm:text-[14px] font-medium text-slate-700 hover:text-slate-950 font-nav text-center flex items-center justify-center min-h-[44px]">
               Send "call me"
             </button>
 
             <!-- Button 4: Show Full Phone Thread -->
-            <button onclick="resetSimulator()" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-b from-white to-[#edf0f4] hover:from-white hover:to-[#e4e7ec] shadow-[0_4px_18px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.11)] border border-slate-200/60 transition-all duration-200 active:scale-[0.98] text-[14px] font-medium text-slate-700 hover:text-slate-950 font-nav text-center flex items-center justify-center">
+            <button onclick="resetSimulator()" class="w-full py-3 sm:py-3.5 px-4 sm:px-6 rounded-full bg-gradient-to-b from-white to-[#edf0f4] hover:from-white hover:to-[#e4e7ec] shadow-[0_4px_18px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.11)] border border-slate-200/60 transition-all duration-200 active:scale-[0.98] text-[13.5px] sm:text-[14px] font-medium text-slate-700 hover:text-slate-950 font-nav text-center flex items-center justify-center min-h-[44px]">
               Show Full Phone Thread
             </button>
           </div>
@@ -434,8 +459,8 @@
       </div>
 
       <!-- iPhone Hardware Frame Simulator -->
-      <div class="lg:col-span-6 flex justify-center">
-        <div class="w-[375px] sm:w-[400px] h-[810px] rounded-[52px] border-[10px] border-[#1c1d22] bg-[#ffffff] shadow-[0_25px_70px_-15px_rgba(0,0,0,0.22)] relative overflow-hidden flex flex-col font-sans select-none">
+      <div class="lg:col-span-6 flex justify-center w-full">
+        <div class="w-full max-w-[340px] xs:max-w-[365px] sm:max-w-[395px] h-[680px] xs:h-[720px] sm:h-[800px] rounded-[42px] sm:rounded-[52px] border-[7px] sm:border-[10px] border-[#1c1d22] bg-[#ffffff] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.22)] relative overflow-hidden flex flex-col font-sans select-none">
           
           <!-- iPhone Status Bar -->
           <div class="pt-3 px-7 flex items-center justify-between text-[14px] font-semibold text-black z-20">
@@ -649,8 +674,8 @@
   </section>
 
   <!-- 4-Stage Verifiable Protocol Section -->
-  <section id="cascade" class="max-w-7xl mx-auto px-6 py-24 border-t border-slate-200 relative z-10">
-    <div class="text-center max-w-3xl mx-auto mb-16">
+  <section id="cascade" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-200 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
       <div class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-semibold mb-2">Choreographed Escalation</div>
       <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">The 4-Stage Extraction Protocol</h2>
       <p class="font-nav text-[15px] sm:text-[16px] text-slate-600 mt-3 max-w-2xl mx-auto leading-relaxed font-normal">Designed from the ground up so you never fumble with apps, look down nervously, or break eye contact.</p>
@@ -659,7 +684,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       
       <!-- Stage 1 -->
-      <div class="panel-card p-6 rounded-3xl relative border-t-4 border-t-indigo-600 flex flex-col justify-between">
+      <div class="panel-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl relative border-t-4 border-t-indigo-600 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] font-mono font-bold text-indigo-600 uppercase tracking-wider">
             <span>Stage 01</span>
@@ -676,7 +701,7 @@
       </div>
 
       <!-- Stage 2 -->
-      <div class="panel-card p-6 rounded-3xl relative border-t-4 border-t-blue-600 flex flex-col justify-between">
+      <div class="panel-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl relative border-t-4 border-t-blue-600 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] font-mono font-bold text-blue-600 uppercase tracking-wider">
             <span>Stage 02</span>
@@ -693,7 +718,7 @@
       </div>
 
       <!-- Stage 3 -->
-      <div class="panel-card p-6 rounded-3xl relative border-t-4 border-t-purple-600 flex flex-col justify-between">
+      <div class="panel-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl relative border-t-4 border-t-purple-600 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] font-mono font-bold text-purple-600 uppercase tracking-wider">
             <span>Stage 03</span>
@@ -710,7 +735,7 @@
       </div>
 
       <!-- Stage 4 -->
-      <div class="panel-card p-6 rounded-3xl relative border-t-4 border-t-red-600 flex flex-col justify-between">
+      <div class="panel-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl relative border-t-4 border-t-red-600 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] font-mono font-bold text-red-600 uppercase tracking-wider">
             <span>Stage 04</span>
@@ -730,8 +755,8 @@
   </section>
 
   <!-- Live Audio Voicemail Lab -->
-  <section id="audio-lab" class="max-w-7xl mx-auto px-6 py-20 border-t border-slate-200 relative z-10">
-    <div class="text-center max-w-3xl mx-auto mb-14">
+  <section id="audio-lab" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-200 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
       <div class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-semibold mb-2">Voice Studio</div>
       <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">Audible Proof Lab</h2>
       <p class="font-nav text-[15px] sm:text-[16px] text-slate-600 mt-3 max-w-2xl mx-auto leading-relaxed font-normal">Listen to the hyper-realistic audio alibis synthesized using ElevenLabs Voice AI and pre-rendered for native Apple devices.</p>
@@ -740,7 +765,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       
       <!-- Audio Card 1: Maintenance -->
-      <div class="panel-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between">
+      <div class="panel-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#1e2229] text-white border-[1.5px] border-white shadow-sm">
@@ -762,7 +787,7 @@
       </div>
 
       <!-- Audio Card 2: CTO Sarah -->
-      <div class="panel-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between">
+      <div class="panel-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#1e2229] text-white border-[1.5px] border-white shadow-sm">
@@ -784,7 +809,7 @@
       </div>
 
       <!-- Audio Card 3: Neighbor Mike (Pet Escape) -->
-      <div class="panel-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between">
+      <div class="panel-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#1e2229] text-white border-[1.5px] border-white shadow-sm">
@@ -806,7 +831,7 @@
       </div>
 
       <!-- Audio Card 4: Master Narration -->
-      <div class="panel-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between">
+      <div class="panel-card p-5 sm:p-6 rounded-2xl sm:rounded-3xl flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between">
             <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-[#1e2229] text-white border-[1.5px] border-white shadow-sm">
@@ -830,12 +855,12 @@
   </section>
 
   <!-- Key Features / Architecture Section -->
-  <section id="architecture" class="max-w-7xl mx-auto px-6 py-24 border-t border-slate-200 relative z-10">
-    <div class="text-center max-w-3xl mx-auto mb-20">
+  <section id="architecture" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-200 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
       <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-950 tracking-tight">Key features</h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 max-w-6xl mx-auto text-center">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 sm:gap-x-12 gap-y-10 sm:gap-y-16 max-w-6xl mx-auto text-center">
       
       <!-- Feature 1: Carrier-Grade Gateway -->
       <div class="flex flex-col items-center">
@@ -952,36 +977,36 @@
   </section>
 
   <!-- Objection Killer / FAQ Section -->
-  <section id="faq" class="max-w-4xl mx-auto px-6 py-20 border-t border-slate-200 relative z-10">
-    <div class="text-center max-w-2xl mx-auto mb-14">
+  <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24 border-t border-slate-200 relative z-10">
+    <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
       <div class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-semibold mb-2">Clarity & Details</div>
       <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Frequently Asked Questions</h2>
     </div>
 
     <div class="space-y-4">
       
-      <div class="panel-card p-6 rounded-2xl">
+      <div class="panel-card p-4 sm:p-6 rounded-xl sm:rounded-2xl">
         <h3 class="text-sm font-bold text-slate-900">Can anyone tell that BailMeOut is an automated bot?</h3>
         <p class="font-nav text-[14px] text-slate-600 mt-2 leading-relaxed font-normal">
           No. The message bubbles appear in authentic native iMessage blue. The audio memos are native voice notes recorded with human-like breathing and background noise. The phone call arrives through real cellular telephone networks from an actual telephone number.
         </p>
       </div>
 
-      <div class="panel-card p-6 rounded-2xl">
+      <div class="panel-card p-4 sm:p-6 rounded-xl sm:rounded-2xl">
         <h3 class="text-sm font-bold text-slate-900">How do I trigger an escape if my phone is on the table?</h3>
         <p class="font-nav text-[14px] text-slate-600 mt-2 leading-relaxed font-normal">
           Simply double-tap any message in your BailMeOut iMessage thread and tap the Heart reaction icon. You do not need to type, unlock a special app, or look down.
         </p>
       </div>
 
-      <div class="panel-card p-6 rounded-2xl">
+      <div class="panel-card p-4 sm:p-6 rounded-xl sm:rounded-2xl">
         <h3 class="text-sm font-bold text-slate-900">Does my computer need to stay awake or turned on?</h3>
         <p class="font-nav text-[14px] text-slate-600 mt-2 leading-relaxed font-normal">
           No. BailMeOut is deployed as an autonomous 24/7 background worker in the cloud (Railway / Render / Docker). Your alibi agent functions continuously even if your laptop is completely powered off.
         </p>
       </div>
 
-      <div class="panel-card p-6 rounded-2xl">
+      <div class="panel-card p-4 sm:p-6 rounded-xl sm:rounded-2xl">
         <h3 class="text-sm font-bold text-slate-900">What is the Dead-Man's Switch feature?</h3>
         <p class="font-nav text-[14px] text-slate-600 mt-2 leading-relaxed font-normal">
           Text <span class="font-mono text-slate-800 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">"bail in 30m"</span> before heading into a date or meeting. If you haven't dismissed the check-in text, BailMeOut automatically fires the full extraction cascade at the designated minute.
@@ -992,24 +1017,24 @@
   </section>
 
   <!-- Final CTA Banner -->
-  <section class="w-full py-28 px-6 text-center relative z-10">
+  <section class="w-full py-16 sm:py-28 px-4 sm:px-6 text-center relative z-10">
     <div class="max-w-3xl mx-auto relative z-10">
-      <h2 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight">
+      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight">
         Never be trapped again.
       </h2>
-      <p class="font-nav text-[15px] sm:text-[16px] text-slate-600 mt-5 max-w-xl mx-auto leading-relaxed font-normal">
+      <p class="font-nav text-[15px] sm:text-[16px] text-slate-600 mt-4 sm:mt-5 max-w-xl mx-auto leading-relaxed font-normal">
         Deploy BailMeOut in 2 minutes, connect your iMessage thread, and let autonomous alibis protect your social exit.
       </p>
 
-      <div class="mt-9 flex flex-wrap items-center justify-center gap-4">
+      <div class="mt-8 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 w-full max-w-xs sm:max-w-none mx-auto">
         <!-- Primary Pill Button: Jet Black -->
-        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-black hover:bg-slate-800 text-white shadow-sm transition-all active:scale-[0.98] group">
+        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-black hover:bg-slate-800 text-white shadow-sm transition-all active:scale-[0.98] min-h-[44px] group">
           <span>Deploy on GitHub</span>
           <svg class="w-3.5 h-3.5 text-white transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         </a>
 
         <!-- Secondary Pill Button: White / Transparent with Outline -->
-        <a href="#simulator" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/90 hover:bg-white text-slate-700 border border-slate-300 hover:border-slate-400 shadow-sm transition-all active:scale-[0.98] group">
+        <a href="#simulator" class="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/90 hover:bg-white text-slate-700 border border-slate-300 hover:border-slate-400 shadow-sm transition-all active:scale-[0.98] min-h-[44px] group">
           <span>Test Live Simulator</span>
           <svg class="w-3.5 h-3.5 text-slate-400 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
         </a>
@@ -1018,18 +1043,18 @@
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-slate-200 py-12 px-6 text-xs text-slate-500 font-mono relative z-10 bg-slate-50/50">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <img src="assets/logo.png" alt="BailMeOut Logo" class="h-8 w-auto object-contain" />
+  <footer class="border-t border-slate-200 py-8 sm:py-12 px-4 sm:px-6 text-xs text-slate-500 font-mono relative z-10 bg-slate-50/50">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6 text-center md:text-left">
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-2.5 sm:gap-3">
+        <img src="assets/logo.png" alt="BailMeOut Logo" class="h-7 sm:h-8 w-auto object-contain" />
         <span class="font-brandLogo font-bold text-[18px] text-slate-900 tracking-tight leading-none">bailmeout</span>
-        <span class="text-slate-400">·</span>
-        <span class="text-slate-500">Autonomous iMessage Social Extraction Agent</span>
+        <span class="text-slate-400 hidden xs:inline">·</span>
+        <span class="text-slate-500 text-[11px] sm:text-xs">Autonomous iMessage Social Extraction Agent</span>
       </div>
-      <div class="flex items-center gap-6">
-        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="hover:text-slate-800 transition">GitHub Repository</a>
-        <a href="https://github.com/dino1x/bailmeout/blob/main/DEPLOY.md" target="_blank" rel="noreferrer" class="hover:text-slate-800 transition">Deployment Guide</a>
-        <a href="https://github.com/dino1x/bailmeout/blob/main/PITCH_KIT.md" target="_blank" rel="noreferrer" class="hover:text-slate-800 transition">Pitch Kit</a>
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="hover:text-slate-800 transition py-1">GitHub Repository</a>
+        <a href="https://github.com/dino1x/bailmeout/blob/main/DEPLOY.md" target="_blank" rel="noreferrer" class="hover:text-slate-800 transition py-1">Deployment Guide</a>
+        <a href="https://github.com/dino1x/bailmeout/blob/main/PITCH_KIT.md" target="_blank" rel="noreferrer" class="hover:text-slate-800 transition py-1">Pitch Kit</a>
       </div>
     </div>
   </footer>
