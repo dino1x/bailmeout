@@ -10,7 +10,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Varela+Round&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Fredoka:wght@500;600;700&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -119,59 +119,60 @@
     .hero-editorial-title {
       font-family: 'Instrument Serif', 'Playfair Display', Georgia, serif;
       letter-spacing: -0.015em;
-      line-height: 1.06;
+      line-height: 1.05;
     }
 
     /* 3D Rotating Video Cylinder Background Backdrop */
     :root {
-      --cylinder-radius: 190px;
+      --cylinder-radius: 200px;
     }
     @media (min-width: 480px) {
       :root {
-        --cylinder-radius: 280px;
+        --cylinder-radius: 260px;
       }
     }
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       :root {
-        --cylinder-radius: 420px;
+        --cylinder-radius: 340px;
       }
     }
     @media (min-width: 1024px) {
       :root {
-        --cylinder-radius: 580px;
+        --cylinder-radius: 400px;
       }
     }
 
     .hero-3d-backdrop {
       position: absolute;
-      top: 0;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
       max-width: 1440px;
       height: 100%;
-      min-height: 560px;
+      min-height: 520px;
       display: flex;
       align-items: center;
       justify-content: center;
-      perspective: 1300px;
-      perspective-origin: 50% 45%;
+      perspective: 1200px;
+      perspective-origin: 50% 48%;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.38;
-      mask-image: radial-gradient(ellipse 80% 70% at 50% 48%, black 25%, transparent 85%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 48%, black 25%, transparent 85%);
+      opacity: 0.32;
+      mask-image: radial-gradient(ellipse 75% 60% at 50% 48%, black 20%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 48%, black 20%, transparent 80%);
       overflow: visible;
     }
     @media (max-width: 480px) {
       .hero-3d-backdrop {
-        perspective: 900px;
+        perspective: 800px;
+        opacity: 0.22;
       }
     }
 
     .carousel-3d-ring {
       width: 180px;
-      height: 120px;
+      height: 115px;
       position: relative;
       transform-style: preserve-3d;
       animation: rotateCylinder 45s linear infinite;
@@ -179,20 +180,20 @@
     }
     @media (min-width: 480px) {
       .carousel-3d-ring {
-        width: 240px;
-        height: 150px;
+        width: 220px;
+        height: 140px;
       }
     }
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       .carousel-3d-ring {
-        width: 310px;
-        height: 190px;
+        width: 270px;
+        height: 170px;
       }
     }
     @media (min-width: 1024px) {
       .carousel-3d-ring {
-        width: 360px;
-        height: 220px;
+        width: 300px;
+        height: 185px;
       }
     }
 
@@ -213,9 +214,9 @@
       height: 100%;
       border-radius: 1.25rem;
       overflow: hidden;
-      background: #090d16;
-      border: 1px solid rgba(226, 232, 240, 0.6);
-      box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.35);
+      background: transparent;
+      border: 1px solid rgba(203, 213, 225, 0.4);
+      box-shadow: 0 15px 35px -8px rgba(15, 23, 42, 0.15);
       backface-visibility: visible;
       transform-style: preserve-3d;
     }
@@ -320,11 +321,13 @@
 
     <!-- Foreground Content Layer: Header, Title & Actions On Top of Background -->
     <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
-      <h1 class="hero-editorial-title text-3xl sm:text-5xl md:text-6xl lg:text-[76px] xl:text-[80px] font-normal text-slate-950 max-w-4xl mx-auto leading-[1.12] sm:leading-[1.07] tracking-[-0.015em] break-words">
-        The autonomous safe word that bails you out of <span class="italic font-serif">bad dates</span> and <span class="italic font-serif">hostage meetings</span>.
+      <h1 class="hero-editorial-title text-4xl sm:text-6xl md:text-7xl lg:text-[78px] xl:text-[82px] font-normal text-slate-950 max-w-5xl mx-auto leading-[1.06] tracking-[-0.015em]">
+        The autonomous safe word that<br class="hidden md:inline" />
+        bails you out of <span class="italic font-serif">bad dates</span> and<br class="hidden md:inline" />
+        <span class="italic font-serif">hostage meetings</span>.
       </h1>
 
-      <p class="mt-4 sm:mt-6 text-[14px] sm:text-[16px] text-slate-600 max-w-xl mx-auto leading-relaxed font-normal px-2">
+      <p class="mt-5 sm:mt-6 text-[15px] sm:text-[16px] text-slate-600 max-w-xl mx-auto leading-relaxed font-normal px-2">
         Discreetly double-tap any message with an Apple Heart reaction under the table.<br class="hidden sm:inline" />
         BailMeOut executes an inescapable 4-tier verifiable emergency cascade.
       </p>
