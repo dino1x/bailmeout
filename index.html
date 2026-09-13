@@ -357,7 +357,7 @@
             <!-- Message 3: Authentic Native iOS Voice Note Player -->
             <div class="flex flex-col items-start">
               <div class="imessage-gray rounded-full px-3.5 py-2 flex items-center gap-3 shadow-sm border border-slate-200/50">
-                <button onclick="toggleAudioPlay('assets/bailmeout-1.mp3')" class="w-7 h-7 rounded-full bg-[#007aff] hover:bg-blue-600 flex items-center justify-center text-white transition active:scale-95 shadow">
+                <button onclick="toggleAudioPlay('assets/voicemail_landlord.mp3')" class="w-7 h-7 rounded-full bg-[#007aff] hover:bg-blue-600 flex items-center justify-center text-white transition active:scale-95 shadow">
                   <svg id="play-icon-svg" class="w-3.5 h-3.5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </button>
                 <!-- Native Apple Waveform Bars -->
@@ -380,7 +380,7 @@
               </div>
               <div class="flex items-center gap-3 text-[11px] font-medium mt-1 ml-3">
                 <span class="text-[#8e8e93]">Raise to listen</span>
-                <button onclick="toggleAudioPlay('assets/bailmeout-1.mp3')" class="text-[#007aff] font-semibold hover:underline">Play All (2)</button>
+                <button onclick="toggleAudioPlay('assets/voicemail_landlord.mp3')" class="text-[#007aff] font-semibold hover:underline">Play All (2)</button>
               </div>
             </div>
 
@@ -590,54 +590,78 @@
       <p class="text-slate-600 mt-3 text-sm sm:text-base">Listen to the hyper-realistic audio alibis synthesized using ElevenLabs Voice AI and pre-rendered for native Apple devices.</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       
       <!-- Audio Card 1: Maintenance -->
-      <div class="panel-card p-6 rounded-3xl">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-bold text-red-600 uppercase tracking-wider bg-red-50 border border-red-200 px-2 py-0.5 rounded">Home Emergency</span>
-          <span class="text-[10px] font-mono text-slate-500 font-medium">0:12 AAC</span>
+      <div class="panel-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-red-600 uppercase tracking-wider bg-red-50 border border-red-200 px-2 py-0.5 rounded">Home Emergency</span>
+            <span class="text-[10px] font-mono text-slate-500 font-medium">0:12 AAC</span>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mt-3">Super Dave (Maintenance)</h3>
+          <p class="text-xs text-slate-600 mt-1 italic leading-relaxed">"Water is pouring through the ceiling into apartment 2B right below yours..."</p>
         </div>
-        <h3 class="text-base font-bold text-slate-900 mt-3">Super Dave (Maintenance)</h3>
-        <p class="text-xs text-slate-600 mt-1 italic leading-relaxed">"Water is pouring through the ceiling into apartment 2B right below yours..."</p>
-        
         <div class="mt-5 pt-4 border-t border-slate-100">
           <audio controls class="w-full h-9" preload="none">
-            <source src="assets/bailmeout-1.mp3" type="audio/mp3">
+            <source src="assets/voicemail_landlord.mp3" type="audio/mpeg">
+            <source src="assets/voicemail_landlord.m4a" type="audio/mp4">
             Your browser does not support audio playback.
           </audio>
         </div>
       </div>
 
       <!-- Audio Card 2: CTO Sarah -->
-      <div class="panel-card p-6 rounded-3xl">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded">Work P0 Incident</span>
-          <span class="text-[10px] font-mono text-slate-500 font-medium">0:14 AAC</span>
+      <div class="panel-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded">Work P0 Incident</span>
+            <span class="text-[10px] font-mono text-slate-500 font-medium">0:07 AAC</span>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mt-3">CTO Sarah (War Room)</h3>
+          <p class="text-xs text-slate-600 mt-1 italic leading-relaxed">"Stripe webhooks are failing globally. All checkout flows returning 500 errors..."</p>
         </div>
-        <h3 class="text-base font-bold text-slate-900 mt-3">CTO Sarah (War Room)</h3>
-        <p class="text-xs text-slate-600 mt-1 italic leading-relaxed">"Stripe webhooks are failing globally. All checkout flows returning 500 errors..."</p>
-        
         <div class="mt-5 pt-4 border-t border-slate-100">
           <audio controls class="w-full h-9" preload="none">
-            <source src="assets/bailmeout-4.mp3" type="audio/mp3">
+            <source src="assets/voicemail_cto.mp3" type="audio/mpeg">
+            <source src="assets/voicemail_cto.m4a" type="audio/mp4">
             Your browser does not support audio playback.
           </audio>
         </div>
       </div>
 
-      <!-- Audio Card 3: Master Narration -->
-      <div class="panel-card p-6 rounded-3xl">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-bold text-emerald-600 uppercase tracking-wider bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">Demo Narration</span>
-          <span class="text-[10px] font-mono text-slate-500 font-medium">0:38 HD</span>
+      <!-- Audio Card 3: Neighbor Mike (Pet Escape) -->
+      <div class="panel-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">Family Emergency</span>
+            <span class="text-[10px] font-mono text-slate-500 font-medium">0:06 AAC</span>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mt-3">Neighbor Mike (Pet Escape)</h3>
+          <p class="text-xs text-slate-600 mt-1 italic leading-relaxed">"Hey, Mike from next door! Your dog escaped through the back gate..."</p>
         </div>
-        <h3 class="text-base font-bold text-slate-900 mt-3">Master Product Walkthrough</h3>
-        <p class="text-xs text-slate-600 mt-1 italic leading-relaxed">"We've all been trapped in a terrible first date or a meeting that should have been an email..."</p>
-        
         <div class="mt-5 pt-4 border-t border-slate-100">
           <audio controls class="w-full h-9" preload="none">
-            <source src="assets/master_voiceover.mp3" type="audio/mp3">
+            <source src="assets/voicemail_pet.mp3" type="audio/mpeg">
+            <source src="assets/voicemail_pet.m4a" type="audio/mp4">
+            Your browser does not support audio playback.
+          </audio>
+        </div>
+      </div>
+
+      <!-- Audio Card 4: Master Narration -->
+      <div class="panel-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-emerald-600 uppercase tracking-wider bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">Demo Narration</span>
+            <span class="text-[10px] font-mono text-slate-500 font-medium">0:38 HD</span>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mt-3">Master Product Walkthrough</h3>
+          <p class="text-xs text-slate-600 mt-1 italic leading-relaxed">"We've all been trapped in a terrible first date or a meeting that should have been an email..."</p>
+        </div>
+        <div class="mt-5 pt-4 border-t border-slate-100">
+          <audio controls class="w-full h-9" preload="none">
+            <source src="assets/master_voiceover.mp3" type="audio/mpeg">
             Your browser does not support audio playback.
           </audio>
         </div>
@@ -813,39 +837,53 @@
       apartment_flood: {
         title: "Apartment Flood",
         caller: "Dave (Building Super)",
-        audioUrl: "assets/bailmeout-1.mp3",
+        audioUrl: "assets/voicemail_landlord.mp3",
+        voiceDuration: "00:12",
         proofFile: "proof_leak.svg",
         proofSize: "6 KB",
         sms: "URGENT: This is building management. Water is pouring through the ceiling into apartment 2B right below yours. Are you home right now??",
-        voiceText: 'Incoming Voicemail (0:14): "Hey, it is Dave from maintenance. We have a major leak, water is backing up fast, we need entry immediately to shut off the main valve. Please call me back!"',
+        voiceText: 'Incoming Voicemail (0:12): "Hey, it is Dave from maintenance. We have a major leak, water is backing up fast, we need entry immediately to shut off the main valve. Please call me back!"',
         photoText: "Tenant downstairs just sent this photo. We are cutting water to the entire riser in 10 minutes if you cannot get here.",
         callText: "Emergency alert! This is Dave from building maintenance. Water is pouring through the ceiling into apartment 2B right below yours. We need you to return immediately to cut the main valve!",
       },
       production_outage: {
         title: "Production Outage",
         caller: "CTO Sarah",
-        audioUrl: "assets/bailmeout-4.mp3",
+        audioUrl: "assets/voicemail_cto.mp3",
+        voiceDuration: "00:07",
         proofFile: "proof_outage.svg",
         proofSize: "4 KB",
         sms: "P0 OUTAGE: Stripe webhooks failing globally. All checkout flows returning 500s. We need your auth key right now.",
-        voiceText: 'Incoming Voicemail (0:11): "Hey, sorry to disturb you, the replica database desynced and locked all table writes. Can you hop on the incident bridge ASAP?"',
+        voiceText: 'Incoming Voicemail (0:07): "Hey, sorry to disturb you, the replica database desynced and locked all table writes. Can you hop on the incident bridge ASAP?"',
         photoText: "Grafana latency spike confirmed at 99.4% error rate. War room link: meet.google.com/emergency-bridge",
         callText: "P0 incident alert! Stripe webhooks are failing globally. All checkout flows are returning 500 errors. Join the incident war room bridge immediately!",
       },
       dog_escape: {
         title: "Escaped Dog",
         caller: "Neighbor Mike",
-        audioUrl: "assets/bailmeout-1.mp3",
+        audioUrl: "assets/voicemail_pet.mp3",
+        voiceDuration: "00:06",
         proofFile: "proof_leak.svg",
         proofSize: "5 KB",
         sms: "URGENT: Your back fence gate blew open in the wind. Barnaby was just spotted heading towards the main avenue. Call me immediately!",
-        voiceText: 'Incoming Voicemail (0:12): "Hey, Mike from next door! Your dog escaped through the back gate and ran towards the avenue. Call me right back!"',
+        voiceText: 'Incoming Voicemail (0:06): "Hey, Mike from next door! Your dog escaped through the back gate and ran towards the avenue. Call me right back!"',
         photoText: "Neighbor saw him near the corner deli. We are trying to corner him now.",
         callText: "Urgent family alert! Your back gate blew open in the wind and your dog was spotted running down the street. Please call me back right away!",
       }
     };
 
     function setScenario(scen) {
+      const audio = document.getElementById('alibi-audio-player');
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+      isAudioPlaying = false;
+      const icon = document.getElementById('play-icon-svg');
+      if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+      const timer = document.getElementById('audio-timer-display');
+      if (timer) timer.innerText = '00:00';
+
       currentScenario = scen;
       document.querySelectorAll('.scenario-btn').forEach(btn => {
         btn.classList.remove('border-2', 'border-indigo-600', 'bg-indigo-50/80', 'shadow-sm');
@@ -954,12 +992,17 @@
       const audio = document.getElementById('alibi-audio-player');
       const icon = document.getElementById('play-icon-svg');
       const timer = document.getElementById('audio-timer-display');
-      const waveform = document.getElementById('waveform-container');
 
       if (!audio) return;
 
-      if (!audio.src.endsWith(url) || audio.src === '') {
+      const cleanSrc = (audio.src || '').split('#')[0].split('?')[0];
+      const isSameTrack = cleanSrc.endsWith(url);
+
+      if (!isSameTrack) {
+        audio.pause();
         audio.src = url;
+        audio.currentTime = 0;
+        isAudioPlaying = false;
       }
 
       if (isAudioPlaying) {
@@ -970,7 +1013,9 @@
         audio.play().then(() => {
           isAudioPlaying = true;
           if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-        }).catch(() => {});
+        }).catch(err => {
+          console.error("Playback error:", err);
+        });
       }
 
       audio.ontimeupdate = () => {
@@ -1065,11 +1110,11 @@
               <span class="w-[2.5px] h-4 bg-[#007aff] rounded-full"></span>
               <span class="w-[2.5px] h-2 bg-[#007aff] rounded-full"></span>
             </div>
-            <span class="text-[13px] font-mono text-[#8e8e93]">00:14</span>
+            <span class="text-[13px] font-mono text-[#8e8e93]">${s.voiceDuration || '00:12'}</span>
           </div>
           <div class="flex items-center gap-3 text-[11px] font-medium mt-1 ml-3">
             <span class="text-[#8e8e93]">Raise to listen</span>
-            <span class="text-[#007aff] font-semibold">Play All (2)</span>
+            <button onclick="toggleAudioPlay('${s.audioUrl}')" class="text-[#007aff] font-semibold hover:underline">Play All (2)</button>
           </div>
         `;
         stream.appendChild(row);
