@@ -114,33 +114,48 @@
   <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-indigo-100/70 via-rose-50/40 to-transparent blur-[120px] pointer-events-none z-0"></div>
   <div class="fixed bottom-0 right-0 w-[600px] h-[500px] bg-indigo-50/50 blur-[140px] pointer-events-none z-0"></div>
 
-  <!-- Navigation Bar -->
-  <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-slate-200/80 px-6 py-3.5 transition-all">
+  <!-- Navigation Bar (motionsites style) -->
+  <header class="sticky top-0 z-50 bg-[#0c0d12]/95 backdrop-blur-md border-b border-white/[0.08] px-6 py-3 transition-all">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Left: Brand Emblem & Title -->
       <div class="flex items-center gap-3">
-        <a href="#" class="flex items-center gap-3 group">
-          <img src="assets/logo.png" alt="BailMeOut Logo" class="h-10 sm:h-11 w-auto object-contain transition-transform group-hover:scale-[1.02]" />
-          <span class="font-bold tracking-tight text-lg text-slate-900">BailMeOut</span>
+        <a href="#" class="flex items-center gap-2.5 group">
+          <img src="assets/logo.png" alt="BailMeOut Logo" class="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105" />
+          <span class="font-bold tracking-tight text-lg text-white">BailMeOut</span>
         </a>
       </div>
 
-      <nav class="hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-wider text-slate-600 font-semibold">
-        <a href="#simulator" class="hover:text-slate-900 transition">Simulator</a>
-        <a href="#cascade" class="hover:text-slate-900 transition">4-Tier Protocol</a>
-        <a href="#audio-lab" class="hover:text-slate-900 transition">Voice Studio</a>
-        <a href="#architecture" class="hover:text-slate-900 transition">Architecture</a>
-        <a href="#faq" class="hover:text-slate-900 transition">FAQ</a>
+      <!-- Center: Nav Items with NEW Pill Badge -->
+      <nav class="hidden md:flex items-center gap-7 text-[13px] font-medium text-slate-300">
+        <a href="#simulator" class="flex items-center gap-1.5 hover:text-white transition">
+          <span>Simulator</span>
+          <span class="px-1.5 py-0.2 rounded-full text-[9px] font-mono font-bold tracking-wider uppercase border border-amber-500/40 bg-amber-500/10 text-amber-400">NEW</span>
+        </a>
+        <a href="#audio-lab" class="hover:text-white transition">Voice Studio</a>
+        <a href="#cascade" class="hover:text-white transition">4-Tier Protocol</a>
+        <a href="#architecture" class="hover:text-white transition">Architecture</a>
+        <a href="#faq" class="hover:text-white transition">FAQ</a>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          <span class="hidden sm:inline">GitHub</span>
+      <!-- Right: Search, White Pill CTA, and Circular Avatar Badge -->
+      <div class="flex items-center gap-3.5">
+        <!-- Search Icon Trigger -->
+        <a href="#simulator" aria-label="Search" class="text-slate-400 hover:text-white transition hidden sm:flex items-center justify-center p-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
         </a>
-        <a href="#simulator" class="px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-sm shadow-indigo-600/20">
+
+        <!-- White Pill Action Button (like 'Go Unlimited') -->
+        <a href="#simulator" class="px-4 sm:px-5 py-1.5 sm:py-2 rounded-full text-xs font-semibold bg-white hover:bg-slate-100 text-slate-950 transition shadow-sm active:scale-95 whitespace-nowrap">
           Launch Simulator
         </a>
+
+        <!-- Circular Profile / Status Emblem (like 'MA' badge) -->
+        <a href="https://github.com/dino1x/bailmeout" target="_blank" rel="noreferrer" title="GitHub Repository • BailMeOut Core" class="w-8 h-8 rounded-full bg-[#1e2f5c] hover:bg-[#253970] text-[#93c5fd] font-bold text-xs flex items-center justify-center border border-blue-400/30 transition shadow-sm">
+          BO
+        </a>
       </div>
+
     </div>
   </header>
 
