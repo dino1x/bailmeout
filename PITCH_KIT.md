@@ -88,7 +88,7 @@ Autonomous iMessage extraction agent that rescues you from awkward dates and mee
 ---
 
 ### Inspiration
-We have all been held hostage by a disastrous first date, an excruciating networking pitch, or a weekend project sync that refused to end. Faking an emergency on the fly is stressful: looking down at your phone to download a cheesy "fake call" app is obvious, and texting a friend to "call me with an emergency" rarely works when you actually need it.
+We have all been trapped in a disastrous first date, an excruciating networking pitch, or a weekend project sync that refused to end. Faking an emergency on the fly is stressful: looking down at your phone to download a cheesy "fake call" app is obvious, and texting a friend to "call me with an emergency" rarely works when you actually need it.
 
 We wanted an invisible, bulletproof escape hatch that lives where people already communicate: inside native Apple iMessage. One tapback under the table, and an autonomous agent orchestrates an unassailable, multi-stage emergency.
 
